@@ -1,0 +1,17 @@
+name: arena_bowl
+title: Bowl arena among rocks
+biome: volcanic
+cases: [duel, execution, ritual, final clash of the heroes]
+knobs: {face: [0, 359], r: [38, 55], h: [12, 20], spires: [5, 9]}
+relief:
+  size: 320
+  ground: ash
+  use:
+    - {type: arena, id: arena, at: [0, 0], face: "{face}", r: "{r}", h: "{h}"}
+  generate:
+    - {gen: spire, id: needle, n: "{spires}", area: {ring: [65, 115]}, params: {h: [14, 28], r: [2.5, 4.5], cap: false}, gap: 1.2}
+  far: {h: 180}
+views:                             # the preset's cameras — for its scenarios (the points are the site's anchors)
+  - {name: wide, from: arena.outside, h: 28, look: arena.center, look_h: 0, lens: 26, back: 40}
+  - {name: duel, from: arena.center, h: 1.7, look: arena.rim, look_h: 2, lens: 30, back: 14}
+  - {name: from_ring, from: arena.rim, h: 2.5, look: arena.center, look_h: 1, lens: 28}

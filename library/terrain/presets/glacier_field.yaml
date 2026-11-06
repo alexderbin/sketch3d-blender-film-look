@@ -1,0 +1,20 @@
+name: glacier_field
+title: Glacier with crevasses under an ice wall
+biome: alpine
+cases: [reconnaissance on the glacier, fall into a crevasse, defense at the wall, blizzard]
+knobs: {h: [20, 35], crevasses: [4, 8], hummocks: [6, 12]}
+relief:
+  size: 360
+  ground: snow
+  snowline: 0
+  use:
+    - {type: cliff_edge, id: wall, at: [0, 70], face: S, h: "{h}", length: 380, reach: 150}
+  generate:
+    - {gen: trench, id: crevasse, n: "{crevasses}", area: {box: [-150, -140, 150, 30]}, params: {length: [30, 80], course: [-35, 35], depth: 4, w: 2.2}, gap: 0.5}
+    - {gen: hill, id: hummock, n: "{hummocks}", area: {box: [-160, -150, 160, 30]}, params: {r: [6, 16], h: [2, 6], shape: dome}, gap: 0.6}
+    - {gen: spire, id: serac, n: [3, 6], area: {box: [-150, -140, 150, 40]}, params: {h: [6, 14], r: [2, 3.5], cap: false}, gap: 1.0}
+  far: {h: 260, kind: ridged}
+views:                             # the preset's cameras — for its scenarios (the points are the site's anchors)
+  - {name: wide, from: [-140, -170], h: 45, look: wall.edge, look_h: 0, lens: 26}
+  - {name: at_wall, from: wall.below, h: 1.7, look: wall.edge, look_h: 4, lens: 26, back: 40}
+  - {name: from_wall_top, from: wall.edge, h: 1.8, look: [0, -80], look_h: 0, lens: 28}

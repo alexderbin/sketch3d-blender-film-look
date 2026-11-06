@@ -1,0 +1,63 @@
+# Ground surfaces for the shader (Eevee, core/surface/bl_terrain_surf.py): our layer → a surface.
+# A surface is an ambientCG photoscan id (library/terrain/scans.yaml), a procedural relief material
+# (mountain, sandstone, stone, chunkyrock, cobble_stone, cracked_ground, dirt, soil, mud, sand,
+# ice) or baked — the color of the baked site texture (a tile set); {dry: …, wet: …} — a pair by the site's
+# moisture (dry ↔ wet, the a_moist map from terrain_tex.variation).
+# The layers are as in components/site/terrain_tex.py: base (the base), dirt (ground in gullies and in patches), talus
+# (scree), rock (steep ground), cliff (a drop), snow, bank (a shore), bed (the floor), pad (a trampled platform), pave
+# (paving), road.
+# use — the default set; another set — bl_relief … surf_set=<name> (the site's surface.json stores all of them).
+use: scan
+sets:
+  scan:                                                            # photoscans
+    default: {base: {dry: Grass004, wet: Grass001}, dirt: {dry: Ground103, wet: Ground037}, talus: Gravel043, rock: Rock030,
+              cliff: Rock030, snow: Snow010A, bank: Ground071, bed: Ground071, pad: Ground103, pave: PavingStones046, road: Ground103}
+    biomes:
+      temperate: {}
+      jungle: {base: {dry: Grass004, wet: Grass001}, dirt: Ground037, rock: Rock063, cliff: Rock063}
+      alpine: {base: {dry: Gravel043, wet: Grass004}, dirt: Ground085, talus: Gravel043, rock: Rock060, cliff: Rock060}   # high mountains: crushed stone ↔ meadow
+      desert: {base: {dry: Ground079S, wet: Ground054}, dirt: Ground081, talus: Ground081, rock: Rock029, cliff: Rock061,
+               bank: Ground080, bed: Ground080, pad: Ground079S, road: Ground079S}
+      volcanic: {base: {dry: Ground110, wet: Ground085}, dirt: Ground085, talus: Ground110, rock: Rock035, cliff: Rock035, bank: Ground110,
+                 bed: Ground110}
+      wasteland: {base: {dry: Ground103, wet: Ground071}, dirt: Ground071, talus: Gravel043, rock: Rock030, cliff: Rock030}
+      alien: {base: Ground068, rock: Rock058, cliff: Rock058}
+  procedural:                                                       # procedural relief materials — a trial: "camouflage" patches
+    default: {base: baked, dirt: soil, talus: cobble_stone, rock: stone, cliff: stone, snow: ice, bank: mud, bed: mud, pad: dirt,
+              pave: cobble_stone, road: dirt}
+    biomes:
+      temperate: {}
+      jungle: {dirt: mud, rock: stone, cliff: stone}
+      alpine: {dirt: soil, rock: stone, cliff: stone, talus: cobble_stone, snow: ice}
+      desert: {base: sand, dirt: cracked_ground, rock: sandstone, cliff: sandstone, talus: cobble_stone, bank: sand, bed: sand,
+               pad: cracked_ground, road: cracked_ground}
+      volcanic: {base: dirt, dirt: cracked_ground, rock: stone, cliff: chunkyrock, talus: cobble_stone}
+      wasteland: {base: cracked_ground, dirt: mud, rock: stone, cliff: stone}
+      alien: {dirt: mud, rock: chunkyrock, cliff: chunkyrock}
+
+# Layer masks (shader, per pixel; layers come from the relief data, noise only gives an uneven edge):
+# rock — bare rock from the slope rock_from° (exposure — ridges and brows — lowers the threshold to 10°), band
+# rock_band°; cliff — a drop from cliff_from°; dirt — dry exposed ground (moisture below dirt_dry) and
+# gullies; talus — the feet of drops and slopes talus_from…talus_to°; jit — the edge irregularity, °.
+masks:
+  default: {rock_from: 27, rock_band: 11, cliff_from: 43, dirt_dry: 0.36, talus_from: 16, talus_to: 30, jit: 4}
+  desert: {rock_from: 33, cliff_from: 45, dirt_dry: 0.30}                 # sand holds a slope up to ~33–34° (the angle of repose)
+  volcanic: {rock_from: 30}
+  alpine: {rock_from: 30, cliff_from: 44}
+
+# Color dilution by relief data (terrain_tex.variation): RGB multipliers (linear color) at the ends of
+# moisture — dry (ridges, sunny slopes, steep ground) and wet (by water, watercourses, gullies, shaded
+# slopes); patches — two tints of large patches (113 m); foot — the feet of drops (scree); patch_m —
+# the share of 60–250 m patches in moisture (a flat field must not be a single color); moist_bias —
+# the biome's moisture shift (the jungle is wet everywhere, the desert is dry).
+variation:
+  default: {dry: [1.16, 1.09, 0.84], wet: [0.76, 0.90, 0.72], patches: [[1.07, 1.0, 0.88], [0.92, 1.0, 1.03]], foot: [1.06, 1.04, 1.0],
+            patch_m: 0.26}
+  temperate: {}
+  jungle: {dry: [1.04, 1.04, 0.92], wet: [0.80, 0.92, 0.78], moist_bias: 0.18}
+  alpine: {dry: [1.10, 1.07, 0.95], wet: [0.84, 0.95, 0.84], patches: [[1.04, 1.02, 0.95], [0.96, 0.99, 1.04]]}
+  desert: {dry: [0.90, 0.86, 0.82], wet: [1.06, 1.05, 1.02], patches: [[1.12, 0.97, 0.86], [0.94, 0.98, 1.03]], foot: [1.0, 0.98, 0.97],
+           patch_m: 0.12, moist_bias: -0.08}   # desert: washouts — fresh light sand; stable flat ground and ridges — darker crushed stone with desert varnish
+  volcanic: {dry: [1.14, 1.10, 1.04], wet: [0.86, 0.86, 0.86], patches: [[1.10, 0.96, 0.86], [0.96, 0.98, 1.0]], patch_m: 0.15}
+  wasteland: {dry: [1.10, 1.06, 0.95], wet: [0.82, 0.84, 0.80], patch_m: 0.18}
+  alien: {dry: [1.10, 1.0, 0.95], wet: [0.85, 0.90, 1.02]}

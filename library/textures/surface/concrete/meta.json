@@ -1,0 +1,26 @@
+{
+ "id": "concrete",
+ "name": "Concrete",
+ "size_m": [
+  4.0,
+  4.0
+ ],
+ "tags": [
+  "bare",
+  "old",
+  "weathered",
+  "panels"
+ ],
+ "authors": [
+  "Rob Tuytel"
+ ],
+ "license": "CC0",
+ "res": "2k",
+ "maps": {
+  "Diffuse": "library/textures/surface/concrete/concrete_Diffuse_2k.jpg",
+  "nor_gl": "library/textures/surface/concrete/concrete_nor_gl_2k.jpg",
+  "Rough": "library/textures/surface/concrete/concrete_Rough_2k.jpg",
+  "Displacement": "library/textures/surface/concrete/concrete_Displacement_2k.jpg"
+ },
+ "substance": "concrete"
+}

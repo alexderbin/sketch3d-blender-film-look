@@ -1,0 +1,31 @@
+{
+ "id": "dirt",
+ "name": "Dirt",
+ "size_m": [
+  2.0,
+  2.0
+ ],
+ "tags": [
+  "dirt",
+  "dirty",
+  "ground",
+  "nature",
+  "earth",
+  "dusty",
+  "rocky",
+  "debris",
+  "footprints"
+ ],
+ "authors": [
+  "Charlotte Baglioni"
+ ],
+ "license": "CC0",
+ "res": "2k",
+ "maps": {
+  "Diffuse": "library/textures/surface/dirt/dirt_Diffuse_2k.jpg",
+  "nor_gl": "library/textures/surface/dirt/dirt_nor_gl_2k.jpg",
+  "Rough": "library/textures/surface/dirt/dirt_Rough_2k.jpg",
+  "Displacement": "library/textures/surface/dirt/dirt_Displacement_2k.jpg"
+ },
+ "substance": "earth"
+}

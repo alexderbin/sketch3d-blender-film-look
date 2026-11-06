@@ -1,0 +1,16 @@
+{
+ "id": "cracks_stone",
+ "source": "crack_atlas.py (crack growth)",
+ "license": "own",
+ "size_m": [
+  2.0,
+  2.0
+ ],
+ "kind": "cracks",
+ "n_cracks": 180,
+ "grain": 1,
+ "maps": {
+  "mask": "library/textures/states/cracks_stone/mask.png",
+  "height": "library/textures/states/cracks_stone/height.png"
+ }
+}

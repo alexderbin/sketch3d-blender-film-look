@@ -1,0 +1,17 @@
+{
+ "id": "brown_mud_02",
+ "source": "Poly Haven",
+ "license": "CC0",
+ "size_m": [
+  1.3,
+  1.3
+ ],
+ "kind": "mud",
+ "what": "brown mud with pebbles",
+ "maps": {
+  "color": "library/textures/states/brown_mud_02/brown_mud_02_Diffuse_2k.jpg",
+  "normal": "library/textures/states/brown_mud_02/brown_mud_02_nor_gl_2k.jpg",
+  "rough": "library/textures/states/brown_mud_02/brown_mud_02_Rough_2k.jpg",
+  "height": "library/textures/states/brown_mud_02/brown_mud_02_Displacement_2k.jpg"
+ }
+}

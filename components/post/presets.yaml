@@ -1,0 +1,34 @@
+# Grading presets (look.py): operation → knobs; the order of operations is look.ORDER, not the order here. To disable an operation — false.
+# The main preset is trailer; the preset depends on the format and is chosen at the final stage (the post output of the format recipe),
+# changed when needed by re-running only the grading (frames come from the cache) or with the steps.py command on a finished run.
+# The numbers come from measurements of CG trailers and experiments on a showcase. There is no grain in the presets: on Shorts the platform smooths it out
+# and the shadow detail pays for it; for a long 16:9 — use the grain knob.
+default: trailer
+presets:
+  trailer:                                # the main one. CG trailer: the reference palette on the world, the fire accent protected; light bloom and halation
+    palette: {ref: muted_warm, mix: 0.7, protect: 0.6}
+    bloom: {strength: 0.2, threshold: 0.75}
+    halation: {strength: 0.12, threshold: 0.85, size: 0.006}
+    ca: {amount: 0.0012}
+    vignette: {strength: 0.22, power: 2.2}
+    letterbox: {aspect: 2.39}             # bars at the top and bottom of a 16:9 frame; vertical 9:16 and wider frames are skipped automatically
+    dither: {amount: 1.0}
+
+  anime:                                  # anime presentation, softened toward the trailer look: the same reference palette at half strength, a soft
+    palette: {ref: muted_warm, mix: 0.4, protect: 0.6}       # bloom, a light painted look of the distance and a sun glow (satsuei
+    kuwahara: {radius: 2, from_m: 300, soft_m: 200}         # style); no letterbox and no aberration
+    bloom: {strength: 0.22, threshold: 0.72}
+    halation: {strength: 0.06, threshold: 0.85, size: 0.006}
+    vignette: {strength: 0.16, power: 2.2}
+    para: {strength: 0.1, spread: 1.1, colour: [1.0, 0.8, 0.55]}
+    dither: {amount: 1.0}
+
+  crush:                                  # crushed shadows, clipped highlights, almost monochrome, warm copper
+    grade: {exposure: 0.0, contrast: 0.25, saturation: 0.35, tint: [1.06, 0.98, 0.86]}
+    halation: {strength: 0.1, threshold: 0.85}
+    vignette: {strength: 0.3, power: 2.0}
+    letterbox: {aspect: 2.39}
+    dither: {amount: 1.0}
+
+  clean:                                  # utility: as in the pipeline, only dithering before 8 bits (comparison, images for the model)
+    dither: {amount: 1.0}

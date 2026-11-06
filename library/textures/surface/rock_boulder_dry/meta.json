@@ -1,0 +1,34 @@
+{
+ "id": "rock_boulder_dry",
+ "name": "Rock Boulder Dry",
+ "size_m": [
+  1.8,
+  1.8
+ ],
+ "tags": [
+  "weathered",
+  "chipped",
+  "rocks",
+  "boulder",
+  "stone",
+  "flat",
+  "damaged",
+  "eroded",
+  "cracked",
+  "rough",
+  "uneven"
+ ],
+ "authors": [
+  "Dimitrios Savva",
+  "Rico Cilliers"
+ ],
+ "license": "CC0",
+ "res": "2k",
+ "maps": {
+  "Diffuse": "library/textures/surface/rock_boulder_dry/rock_boulder_dry_Diffuse_2k.jpg",
+  "nor_gl": "library/textures/surface/rock_boulder_dry/rock_boulder_dry_nor_gl_2k.jpg",
+  "Rough": "library/textures/surface/rock_boulder_dry/rock_boulder_dry_Rough_2k.jpg",
+  "Displacement": "library/textures/surface/rock_boulder_dry/rock_boulder_dry_Displacement_2k.jpg"
+ },
+ "substance": "stone"
+}

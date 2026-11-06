@@ -1,0 +1,63 @@
+{
+ "Moss003": {
+  "id": "Moss003",
+  "source": "ambientCG",
+  "license": "CC0",
+  "kind": "moss",
+  "what": "dense moss",
+  "maps": {
+   "ao": "library/textures/states/Moss003/Moss003_1K-JPG_AmbientOcclusion.jpg",
+   "color": "library/textures/states/Moss003/Moss003_1K-JPG_Color.jpg",
+   "height": "library/textures/states/Moss003/Moss003_1K-JPG_Displacement.jpg",
+   "normal": "library/textures/states/Moss003/Moss003_1K-JPG_NormalGL.jpg",
+   "rough": "library/textures/states/Moss003/Moss003_1K-JPG_Roughness.jpg"
+  }
+ },
+ "Moss004": {
+  "id": "Moss004",
+  "source": "ambientCG",
+  "license": "CC0",
+  "kind": "moss",
+  "what": "moss-cushion",
+  "maps": {
+   "ao": "library/textures/states/Moss004/Moss004_1K-JPG_AmbientOcclusion.jpg",
+   "color": "library/textures/states/Moss004/Moss004_1K-JPG_Color.jpg",
+   "height": "library/textures/states/Moss004/Moss004_1K-JPG_Displacement.jpg",
+   "normal": "library/textures/states/Moss004/Moss004_1K-JPG_NormalGL.jpg",
+   "rough": "library/textures/states/Moss004/Moss004_1K-JPG_Roughness.jpg"
+  }
+ },
+ "brown_mud_02": {
+  "id": "brown_mud_02",
+  "source": "Poly Haven",
+  "license": "CC0",
+  "size_m": [
+   1.3,
+   1.3
+  ],
+  "kind": "mud",
+  "what": "brown mud with pebbles",
+  "maps": {
+   "color": "library/textures/states/brown_mud_02/brown_mud_02_Diffuse_2k.jpg",
+   "normal": "library/textures/states/brown_mud_02/brown_mud_02_nor_gl_2k.jpg",
+   "rough": "library/textures/states/brown_mud_02/brown_mud_02_Rough_2k.jpg",
+   "height": "library/textures/states/brown_mud_02/brown_mud_02_Displacement_2k.jpg"
+  }
+ },
+ "cracks_stone": {
+  "id": "cracks_stone",
+  "source": "crack_atlas.py (crack growth)",
+  "license": "own",
+  "size_m": [
+   2.0,
+   2.0
+  ],
+  "kind": "cracks",
+  "n_cracks": 180,
+  "grain": 1,
+  "maps": {
+   "mask": "library/textures/states/cracks_stone/mask.png",
+   "height": "library/textures/states/cracks_stone/height.png"
+  }
+ }
+}

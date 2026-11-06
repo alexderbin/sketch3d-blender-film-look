@@ -1,0 +1,73 @@
+# Man-made site relief (components/site/terrain_works.py).
+# Tags: [L] our lidar measurement (towns/measures/works.json), [P] primary source, [S] retold secondhand, [R] from memory.
+
+# Soil: repose — the angle of repose of a fresh embankment, °; kappa — the slope diffusion
+# coefficient, m²/kyr (aging σ = √(2κt)); bulk — bulking (an embankment is larger than the
+# excavation). κ: Hanks 1984 — 1.1 for the shoreline scarps of Bonneville [P]; a humid climate 2–10
+# [S]; the chalk ramparts of England's 2000-year-old hillforts keep faces of 35–41° — κ ≈ 1–2 [L].
+soils:
+  chalk:      {repose: 38, kappa: 1.5, bulk: 1.15}
+  loam: {repose: 35, kappa: 3.0, bulk: 1.2}
+  clay:    {repose: 33, kappa: 4.0, bulk: 1.25}
+  sand:    {repose: 33, kappa: 6.0, bulk: 1.1}
+  stone:   {repose: 40, kappa: 0.8, bulk: 1.35}
+  silt:       {repose: 26, kappa: 10.0, bulk: 1.1}     # tell mud brick, terps
+  ash:    {repose: 34, kappa: 8.0, bulk: 1.05}     # hive wastelands
+  slag:     {repose: 38, kappa: 1.0, bulk: 1.3}      # spoil heaps, spoil cones: Glen Burn measurement — slopes p90 39°, p95 42° [L]
+
+# Ramparts and ditches (the works shape): defaults by kind. bank — a rampart above the ground, inside: h, crest
+# (crest width), out/in — the faces, ° (empty — the soil's angle of repose, the inner one 8° gentler); ditch — a
+# ditch: depth (below the counterscarp), w (floor), out — the outward slope, °; berm — the strip between rampart
+# and ditch; cs — the share of the excavation going to the counterscarp (a rampart beyond the ditch); lines —
+# the number of lines, spacing — the crest step, m; shrink — a size multiplier for the outer lines; gate_w —
+# gate width; age — years; balance: true — the rampart height comes from the ditch volume.
+# Fresh rampart faces: the inner one is the soil's angle of repose, the outer one 3° gentler; fitted
+# to the large ramparts of Maiden Castle and Danebury (chalk, 2000 years, slope 8°): ditch 5 m, berm
+# 1.5, κ 1.5 → rampart above the yard 2.65 (actual 2.7), faces 36.5° / 25° (37 / 26) [L].
+works:
+  hillfort:       {bank: {h: 2.5, crest: 2.5}, ditch: {depth: 3.5, w: 1.0}, berm: 1.0, cs: 0.1, lines: 1, spacing: 30, soil: loam, age: 1000, gate_w: 4}
+  multivallate:   {bank: {h: 3.5, crest: 2.5}, ditch: {depth: 5.0, w: 1.0}, berm: 1.5, cs: 0.1, lines: 3, spacing: 40, shrink: 0.8, soil: chalk, age: 2000, gate_w: 5}   # Maiden Castle: 4 lines, 42 m step, ditch 2–5.5, rampart above the yard 2.8–7.6 [L]
+  ring:      {bank: {h: 3.0, crest: 2.5}, ditch: {depth: 4.0, w: 1.5}, berm: 1.5, cs: 0.1, lines: 1, spacing: 30, soil: loam, age: 1000, gate_w: 4}   # Danebury: rampart 2–3.2 above the yard, ditch up to 2.6 [L]
+  cross_bank:       {bank: {h: 4.0, crest: 3.0}, ditch: {depth: 4.5, w: 2.0}, berm: 1.0, cs: 0.1, lines: 1, spacing: 25, soil: loam, age: 1000, gate_w: 4}   # the land-side rampart of a promontory hillfort
+  rim:        {bank: {h: 1.2, crest: 1.5}, ditch: {depth: 0.0}, lines: 1, soil: loam, age: 1000}                                                   # a rampart along the edge of the platform of a promontory one
+  town_rampart:  {bank: {h: 5.0, crest: 5.0}, ditch: {depth: 4.0, w: 4.0}, berm: 3.0, cs: 0.1, lines: 1, spacing: 30, soil: loam, age: 800, gate_w: 6}   # Wareham: 3–8 m outside, crest 5.5 [L]; Pereslavl 10–17 m, base 30 [S]
+  henge:          {bank: {h: 3.0, crest: 2.5}, ditch: {depth: 3.0, w: 1.5, inner: true}, berm: 1.0, cs: 0.0, lines: 1, soil: loam, age: 2000, gate_w: 8}   # Newark: rampart 2.5–3.6, ditch inside 2–2.7 [L]
+  bastioned:     {bank: {h: 4.0, crest: 6.0, out: 44}, ditch: {depth: 2.5, w: 12.0}, berm: 1.0, cs: 0.0, lines: 1, soil: sand, age: 300, gate_w: 6}   # Bourtange: faces 41–46°, rampart 3–4.6 above the yard [L]
+
+# Settlement mounds (the mound shape): h — height, top — radius of the top (or rx/ry), face — the face of a
+# fresh mound, °; age — years since abandonment; gullies — washouts (count, depth), lower — the lower town
+# (radius, rise). A tell: 5–50 m, 50–500 m [S, Menze 2006]; Aliava ≈ 22 m above the floodplain, a nearly flat
+# top, a steeper south face, washouts deeper toward the base [P, Forti 2023]; the Hegebeintum terp 8.2 m, top 15
+# m, base 52 m (dug away at the edges) [L]; Monks Mound 31 m, top 32 m, base 129 m, faces 25–35° [L].
+mounds:
+  tell:      {h: 18, top: 70, face: 32, soil: silt, age: 2500, gullies: [7, 1.6], lower: [170, 1.5], steep: [S, 1.4]}
+  terp:       {h: 6, top: 35, face: 22, soil: silt, age: 1200, gullies: [0, 0], lower: [0, 0]}
+  platform:  {h: 25, top: 45, face: 34, soil: clay, age: 800, gullies: [5, 0.8], shape: square}
+
+# Field terraces (lynchets): scarp 2.3 m (1.9–2.8), tread 20 m (14–29), scarp
+# face 25° (21–29), the tread nearly follows the slope [L, Worth Matravers].
+lynchets: {step: 2.3, riser: 27, tread: 0.75, soil: chalk, age: 700}
+# Sunken roads (holloways): depth 1.5 m (1.1–2.0; p90 3.3), floor 3 m
+# (2–5), sides 24° (p90 39°) [L, Symondsbury]; deeper on steep ground.
+holloway: {depth: 1.6, w: 3.0, side: 32, bank: 0.5, soil: loam, age: 600}
+# Ridge-and-furrow fields: pitch 16 m (13–21), amplitude 0.2 m (0.15–0.3)
+# — smoothed by later plowing [L, Padbury]; fresh — up to 1 m [S].
+furrows: {step: 11, amp: 0.45, s_curve: 6.0, headland: 0.35}
+# Terraced quarry: bench 24 m (17–28), tread 45 m with roads, face 50° (47–56) [L, Bingham Canyon — an open-pit mine];
+# a quarry by a town — bench 4–8 m, face 70° [R].
+pits:
+  mine:      {bench: 15, berm: 12, face: 52, depth: 90}
+  quarry: {bench: 5, berm: 3, face: 68, depth: 18}
+  sand_pit:    {bench: 3, berm: 4, face: 34, depth: 8}
+# Spoil heap (heap): the face is the soil's angle of repose; a spoil cone (spoil_cone) is a cone; a
+# flat-topped one (flat_top) is a heap with a platform; a tailings pond is built in steps.
+heaps:
+  spoil_cone:  {shape: cone, soil: slag, h: 45, age: 60, gullies: [9, 1.2]}
+  flat_top:   {shape: flat, soil: slag, h: 18, top: 50, age: 60, gullies: [6, 0.8]}
+  spoil:     {shape: flat, soil: loam, h: 6, top: 15, age: 150, gullies: [3, 0.4]}
+# Dike: crest 4 m, height 4 m, slope toward the water 1:4 (14°), toward land
+# 1:2.5 (22°) [R]; a harbor mole — the same shape running into the water.
+dike: {h: 4.0, crest: 4.0, out: 14, in: 22, soil: clay, age: 200}
+# Ash and sand dunes: pitch 40–80 m in the near site, height 2–6 m,
+# windward slope 6–12°, leeward — the angle of repose 32–34° [R].
+dunes: {step: 60, h: 4.0, stoss: 9, lee: 32, sinuosity: 0.25, patch: 0.5}

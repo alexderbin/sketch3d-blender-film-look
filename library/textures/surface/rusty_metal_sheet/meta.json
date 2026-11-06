@@ -1,0 +1,32 @@
+{
+ "id": "rusty_metal_sheet",
+ "name": "Rusty Metal Sheet",
+ "size_m": [
+  2.0,
+  2.0
+ ],
+ "tags": [
+  "metal",
+  "rusty",
+  "rust",
+  "rusted",
+  "corroded",
+  "sheet",
+  "tarnished",
+  "oxidized",
+  "corroded metal sheet"
+ ],
+ "authors": [
+  "Amal Kumar"
+ ],
+ "license": "CC0",
+ "res": "2k",
+ "maps": {
+  "Diffuse": "library/textures/surface/rusty_metal_sheet/rusty_metal_sheet_Diffuse_2k.jpg",
+  "nor_gl": "library/textures/surface/rusty_metal_sheet/rusty_metal_sheet_nor_gl_2k.jpg",
+  "Rough": "library/textures/surface/rusty_metal_sheet/rusty_metal_sheet_Rough_2k.jpg",
+  "Displacement": "library/textures/surface/rusty_metal_sheet/rusty_metal_sheet_Displacement_2k.jpg"
+ },
+ "substance": "metal",
+ "grain": "v"
+}

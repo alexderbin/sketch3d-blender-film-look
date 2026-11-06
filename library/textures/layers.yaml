@@ -1,0 +1,8 @@
+# State layer textures for the shared material (components/materials/bl_mat.py) — ambientCG, CC0, 1K JPG.
+# Download: .venv/bin/python -m components.materials.mat_layers fetch  → library/textures/layers/<id>/
+# Only rust remains among the images (at two scales under large-scale noise). Scatter (SurfaceImperfections015),
+# dirt (Ground111) and snow (Snow015) are replaced by 3D noise: a tiled image gave a grid on a smooth pipe (repeat 0.43 against
+# 0.05), a "box" projection onto a cylinder gave stripes, and Snow015 had a green tint.
+res: 1K
+layers:
+  rust:   {id: Rust009, maps: [Color, Roughness, NormalGL]}              # rust: color, roughness, relief from color

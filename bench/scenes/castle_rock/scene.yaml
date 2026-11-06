@@ -1,0 +1,10 @@
+model: 1
+scene: castle_rock
+concept: |
+  Step-by-step build example: a castle on a rocky hill at a catalog place (fortress_hill), night,
+  masonry and wall texture, a frame from the gate and a fly-around. The scene is assembled by the pipeline
+  core/manager/pipelines/castle_rock.yaml into one .blend step by step; there are no description files
+  here — the steps write them into the run's copy of the scene.
+fps: 24
+seed: 7
+build: {stepwise: true}

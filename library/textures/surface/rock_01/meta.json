@@ -1,0 +1,30 @@
+{
+ "id": "rock_01",
+ "name": "Rock 01",
+ "size_m": [
+  1.5,
+  1.5
+ ],
+ "tags": [
+  "grey",
+  "smooth",
+  "rock",
+  "stone",
+  "gray",
+  "weathered",
+  "rock face",
+  "solid rock"
+ ],
+ "authors": [
+  "Rob Tuytel"
+ ],
+ "license": "CC0",
+ "res": "2k",
+ "maps": {
+  "Diffuse": "library/textures/surface/rock_01/rock_01_Diffuse_2k.jpg",
+  "nor_gl": "library/textures/surface/rock_01/rock_01_nor_gl_2k.jpg",
+  "Rough": "library/textures/surface/rock_01/rock_01_Rough_2k.jpg",
+  "Displacement": "library/textures/surface/rock_01/rock_01_Displacement_2k.jpg"
+ },
+ "substance": "stone"
+}

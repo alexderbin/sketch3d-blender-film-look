@@ -1,0 +1,17 @@
+name: acropolis_city
+title: Acropolis — a rock table above a plain by the sea
+biome: temperate
+cases: [acropolis above the town, climb to the gate, siege, view from the acropolis over the harbor]
+knobs: {face: [0, 359], h: [40, 70], rx: [110, 170], ry: [60, 100], sea_at: [110, 190], knoll_h: [10, 20]}
+relief:
+  size: 720
+  res: 0.9
+  ground: grass
+  erosion: {amount: 0.35}
+  use:
+    - {type: acropolis, id: city, at: [0, 0], face: "{face}", h: "{h}", rx: "{rx}", ry: "{ry}", sea_at: "{sea_at}", knoll_h: "{knoll_h}"}
+  far: {h: 110, open: city.open_sea}              # the sea reaches the horizon: the mountain belt parts
+views:
+  - {name: wide, from: city.agora, h: 70, look: city.top, look_h: 0, lens: 24, back: 120}
+  - {name: ascent, from: city.approach, h: 1.7, look: city.gate, look_h: 3, lens: 28, walk: true}
+  - {name: from_acropolis_to_sea, from: city.top, h: 1.8, look: city.harbour, look_h: 8, lens: 24, walk: true}

@@ -1,0 +1,19 @@
+# ball, level "low" — the bake summary (components/fx/fx_bake.py); the .vdb frames and stats.json are outside git
+resolution: 64
+noise: 0
+n_frames: 106
+frame_start: 10
+fps: 24
+domain:
+- 9
+- 9
+- 13
+angle:
+- -4.5
+- -4.5
+- 0.0
+height: 5.173
+early_s: 0.792
+bake_s: 13.7
+disk_mb: 30.9
+peak_gb: 0.54

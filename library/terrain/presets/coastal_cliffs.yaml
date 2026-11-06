@@ -1,0 +1,20 @@
+name: coastal_cliffs
+title: Coastal cliffs with sea stacks
+biome: temperate
+cases: [landing from the sea, fight on the cliff edge, lighthouse, farewell by the sea]
+knobs: {h: [30, 55], stacks: [2, 4]}
+relief:
+  size: 380
+  ground: grass
+  use:
+    - {type: cliff_edge, id: coast, at: [0, -40], face: S, h: "{h}", length: 440, reach: 240}
+  features:
+    - {kind: lake, id: sea, poly: [[-280, -70], [280, -70], [280, -300], [-280, -300]], level: -1.5, depth: 7, bank_slope: 20}
+  generate:
+    - {gen: hill, id: stack, n: "{stacks}", area: {box: [-150, -165, 150, -100]}, params: {r: [6, 12], h: [18, 40], shape: mesa, jag: 0.25}, gap: 1.0}
+    - {gen: arch, id: sea_arch, n: [1, 1], area: {box: [-110, -150, 110, -115]}, params: {span: [20, 34], h: [14, 24], thick: [4, 6], rot: [-30, 30]}, gap: 2.0}
+  far: {h: 110, sides: [N, E, W]}
+views:                             # the preset's cameras — for its scenarios (the points are the site's anchors)
+  - {name: wide, from: [-150, 120], h: 70, look: coast.edge, look_h: 0, lens: 26}
+  - {name: cliff_edge, from: coast.plateau, h: 1.7, look: coast.edge, look_h: 0, lens: 28, back: 10}
+  - {name: from_sea_below, from: coast.below, h: 1.5, look: coast.edge, look_h: 2, lens: 24, back: 25}

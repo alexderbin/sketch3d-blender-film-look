@@ -1,0 +1,31 @@
+{
+ "id": "gravelly_sand",
+ "name": "Gravelly Sand",
+ "size_m": [
+  2.48,
+  2.48
+ ],
+ "tags": [
+  "sand",
+  "gravel",
+  "stony",
+  "terrain",
+  "ground",
+  "dirt",
+  "coarse",
+  "debris",
+  "dusty"
+ ],
+ "authors": [
+  "Dario Barresi"
+ ],
+ "license": "CC0",
+ "res": "2k",
+ "maps": {
+  "Diffuse": "library/textures/surface/gravelly_sand/gravelly_sand_Diffuse_2k.jpg",
+  "nor_gl": "library/textures/surface/gravelly_sand/gravelly_sand_nor_gl_2k.jpg",
+  "Rough": "library/textures/surface/gravelly_sand/gravelly_sand_Rough_2k.jpg",
+  "Displacement": "library/textures/surface/gravelly_sand/gravelly_sand_Displacement_2k.jpg"
+ },
+ "substance": "sand"
+}

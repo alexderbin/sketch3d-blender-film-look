@@ -1,0 +1,42 @@
+# Core outputs — passports for the manager (ARCHITECTURE.md). An output reads the built scene and adds nothing to it.
+component: core
+version: 1
+steps:
+  frames:
+    kind: output
+    reads: [all]
+    writes: []
+    # map bundles per camera (bl_pack → pack), for scenes with a .blend — color and previs (bl_color → previs), with light — lit.png
+    command: ["{py}", -m, core.outputs.frames, "{scene}", "{out}", "{cameras}"]
+    keys: {cameras: all, samples: null, video: false, fps: 6, maps: true, light: true, look: lit, hdri: null, fire: null, parallel: null, resume: false}   # maps — the map bundle; light — far.py post when there is a light plan
+    command_keys: [hdri, fire, parallel]   # the old path only (core/outputs/frames.py)
+    values: {cameras: str, samples: int, video: bool, fps: int, maps: bool, light: bool, look: [lit, sketch], resume: bool}
+    description: {cameras: "all | 1,2 | 1-3 — camera numbers from cameras.json", video: "true — a fly-around of the orbit_* cameras into orbit.mp4", fps: "frames per second of the clip",
+               samples: "Eevee samples (by default — by profile)", maps: "map bundle per camera (id, depth, normals, outline)", light: "a lit frame of the 'light' step (far.py post)",
+               look: "lit — Eevee with the node's light; sketch — a sketch frame: Workbench, attribute color, outline, shadow from the plan's sun, sky in the node's tones (core/outputs/bl_sketch.py)"}
+    profiles: {sketch: {look: sketch, maps: false}}   # the sketch stage: a sketch frame, no map bundle
+    hint: "an output, after all steps; clip: true — a fly-around of the orbit_* cameras (the 'camera' step with an orbit)"
+    flags: {samples: --samples, hdri: --hdri, fire: --fire, parallel: --par}
+    accepts_step_keys: true    # light and weather are still glued together in the render through keys (--light, --weather)
+    build: ../outputs/bl_frames_blend.py:render   # build by steps: a lit frame (the light plan of the 'light' step: lit.exr + sky.exr → far.py post; otherwise a direct PNG),
+                                                  # the map bundle of the same camera (bl_pack.Pack over a map scene from the open scene + pack.py), the fly-around video
+    command_profiles: {sketch: [--no-color], preview: [--samples, "16"], final: []}   # the old path (frames.py); by steps — samples by profile in bl_frames_blend
+    code: [core/outputs/frames.py, core/outputs/bl_pack.py, core/outputs/pack.py, core/outputs/maps.py, core/outputs/bl_color.py, core/outputs/previs.py, core/blender/bl_scene.py,
+          core/light/far.py, core/light/bl_far.py, core/hooks.py, core/outputs/bl_frames_blend.py,
+          core/outputs/bl_scene_blend.py, core/outputs/bl_parts.py, core/blender/build.py, core/outputs/bl_sketch.py, core/outputs/sketch.py]
+    cost: medium
+    budget: {sketch: 60, preview: 180, final: 600}
+    on_fail: stop
+  cut:
+    kind: output
+    reads: [all]
+    writes: []
+    plan: ../outputs/cut.py:plan_cut     # project Python: the frames of the 'frames' output by camera names → shots → a clip per shot, the video back to back, a title card
+    keys: {shots: "orbit:orbit_,take:take_", fps: 12, title: "", grade: ""}
+    values: {fps: int}
+    description: {shots: "shots: 'name:camera_name_prefix,…' in order (orbit:orbit_ — fly-around, take:take_ — take)",
+               title: "a title card at the end, 2.5 s", grade: "color correction — an ffmpeg filter (eq=contrast=1.06,vignette=PI/6)"}
+    hint: "an output after 'frames' (its lit.png frames); the editing of the 'Battle Trailer' format uses the same mechanism by frame numbers"
+    cost: light
+    on_fail: stop
+

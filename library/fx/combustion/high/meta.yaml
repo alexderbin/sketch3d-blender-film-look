@@ -1,0 +1,19 @@
+# combustion, level "high" — the bake summary (components/fx/fx_bake.py); the .vdb frames and stats.json are outside git
+resolution: 128
+noise: 2
+n_frames: 130
+frame_start: 10
+fps: 24
+domain:
+- 4
+- 4
+- 8
+angle:
+- -2.0
+- -2.0
+- 0.0
+height: 7.181
+early_s: 0.3
+bake_s: 547.9
+disk_mb: 672.2
+peak_gb: 0.61

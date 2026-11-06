@@ -1,0 +1,48 @@
+# Small clutter near the camera (components/site/bl_terrain_clutter.py): grass tufts, weeds, pebbles, stones, twigs, moss —
+# Poly Haven scans (CC0, game-ready: levels of detail _LOD0…3, grass as cards with alpha). Download:
+# .venv/bin/python -m components.site.terrain_clutter fetch
+# → library/clutter/polyhaven/<id>/, index.json (the mean color of the texture — for tinting by the ground).
+# Density by the site's layers × the layer share × moisture, full up close, zero toward reach; the level of
+# detail by distance; an instance's tint is the color of the ground under it (clutter tinting); points only
+# within the cameras' field of view.
+res: 1k
+reach: 70            # m: beyond this no clutter is placed (the ground texture replaces it); a 0.5 m tuft at 30 m is ~20 pixels of the frame
+full: 20             # m: full density up to here; sparser beyond, but with larger tufts (as in engines)
+lod: [8, 20, 40]     # m: LOD0 | LOD1 | LOD2 | LOD3 boundaries
+assets:              # Poly Haven id; groups — variants by moisture (part of the object name); scale — spread; tilt — toward the ground normal (0…1)
+  grass:       {id: grass_medium_01, groups: {dry: [tiny, small], wet: [mid, large, tall]}, scale: [0.8, 1.25], tilt: 0.3}
+  grass_short: {id: grass_bermuda_01, groups: {dry: [dead, small, single, flattened], wet: [medium, seedling]}, scale: [0.8, 1.3], tilt: 0.4}
+  weeds:       {id: weed_plant_02, scale: [0.8, 1.4], tilt: 0.5}
+  twigs:       {id: dry_branches_medium_01, scale: [0.6, 1.0], tilt: 1.0, flat: true}
+  pebbles:     {id: namaqualand_stones_01, scale: [0.6, 1.6], tilt: 1.0}
+  stone:       {id: stone_01, scale: [0.8, 2.2], tilt: 1.0}
+  moss:        {id: moss_01, scale: [0.8, 1.5], tilt: 1.0}
+# density, instances per m² at layer share 1 (up close); layers as in the ground shader (base, dirt, talus, bank, pad, road, …)
+density:
+  default:
+    base:  {grass: 10, grass_short: 8, weeds: 0.12}
+    dirt:  {grass_short: 1.5, pebbles: 1.2, twigs: 0.02}
+    talus: {pebbles: 4, stone: 0.5}
+    rock:  {pebbles: 0.6}
+    bank:  {grass: 9, grass_short: 4}
+    pad:   {pebbles: 0.6, grass_short: 0.4}
+    road:  {pebbles: 0.3}
+  temperate: {}
+  jungle:
+    base:  {grass: 9, grass_short: 4, weeds: 0.3, moss: 2}
+    dirt:  {moss: 3, twigs: 0.06, grass_short: 1}
+  alpine:
+    base:  {grass_short: 6, grass: 2, pebbles: 0.4}
+    dirt:  {pebbles: 1.5, grass_short: 1}
+  desert:
+    base:  {pebbles: 0.8, twigs: 0.01}
+    dirt:  {pebbles: 2.5}
+    talus: {pebbles: 6, stone: 0.8}
+    bank:  {pebbles: 1}
+  volcanic:
+    base:  {pebbles: 1.2}
+    dirt:  {pebbles: 2.5}
+    talus: {pebbles: 6, stone: 0.8}
+  wasteland:
+    base:  {grass_short: 1.5, pebbles: 0.8, twigs: 0.03}
+    dirt:  {pebbles: 2}

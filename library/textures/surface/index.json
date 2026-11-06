@@ -1,0 +1,525 @@
+{
+ "rock_surface": {
+  "id": "rock_surface",
+  "name": "Rock Surface",
+  "size_m": [
+   2.0,
+   2.0
+  ],
+  "tags": [
+   "rough",
+   "weathered",
+   "discolored",
+   "dirty",
+   "stone",
+   "rock",
+   "boulder",
+   "coarse"
+  ],
+  "authors": [
+   "Amal Kumar"
+  ],
+  "license": "CC0",
+  "res": "2k",
+  "maps": {
+   "Diffuse": "library/textures/surface/rock_surface/rock_surface_Diffuse_2k.jpg",
+   "nor_gl": "library/textures/surface/rock_surface/rock_surface_nor_gl_2k.jpg",
+   "Rough": "library/textures/surface/rock_surface/rock_surface_Rough_2k.jpg",
+   "Displacement": "library/textures/surface/rock_surface/rock_surface_Displacement_2k.jpg"
+  },
+  "substance": "stone"
+ },
+ "rock_01": {
+  "id": "rock_01",
+  "name": "Rock 01",
+  "size_m": [
+   1.5,
+   1.5
+  ],
+  "tags": [
+   "grey",
+   "smooth",
+   "rock",
+   "stone",
+   "gray",
+   "weathered",
+   "rock face",
+   "solid rock"
+  ],
+  "authors": [
+   "Rob Tuytel"
+  ],
+  "license": "CC0",
+  "res": "2k",
+  "maps": {
+   "Diffuse": "library/textures/surface/rock_01/rock_01_Diffuse_2k.jpg",
+   "nor_gl": "library/textures/surface/rock_01/rock_01_nor_gl_2k.jpg",
+   "Rough": "library/textures/surface/rock_01/rock_01_Rough_2k.jpg",
+   "Displacement": "library/textures/surface/rock_01/rock_01_Displacement_2k.jpg"
+  },
+  "substance": "stone"
+ },
+ "rock_boulder_dry": {
+  "id": "rock_boulder_dry",
+  "name": "Rock Boulder Dry",
+  "size_m": [
+   1.8,
+   1.8
+  ],
+  "tags": [
+   "weathered",
+   "chipped",
+   "rocks",
+   "boulder",
+   "stone",
+   "flat",
+   "damaged",
+   "eroded",
+   "cracked",
+   "rough",
+   "uneven"
+  ],
+  "authors": [
+   "Dimitrios Savva",
+   "Rico Cilliers"
+  ],
+  "license": "CC0",
+  "res": "2k",
+  "maps": {
+   "Diffuse": "library/textures/surface/rock_boulder_dry/rock_boulder_dry_Diffuse_2k.jpg",
+   "nor_gl": "library/textures/surface/rock_boulder_dry/rock_boulder_dry_nor_gl_2k.jpg",
+   "Rough": "library/textures/surface/rock_boulder_dry/rock_boulder_dry_Rough_2k.jpg",
+   "Displacement": "library/textures/surface/rock_boulder_dry/rock_boulder_dry_Displacement_2k.jpg"
+  },
+  "substance": "stone"
+ },
+ "worn_rock_natural_01": {
+  "id": "worn_rock_natural_01",
+  "name": "Worn Rock Natural 01",
+  "size_m": [
+   2.0,
+   2.0
+  ],
+  "tags": [
+   "weathered",
+   "yellow",
+   "rock face",
+   "rock",
+   "flat",
+   "brown",
+   "boulder",
+   "cliff",
+   "chipped",
+   "nature",
+   "costal"
+  ],
+  "authors": [
+   "Rob Tuytel",
+   "Dimitrios Savva"
+  ],
+  "license": "CC0",
+  "res": "2k",
+  "maps": {
+   "Diffuse": "library/textures/surface/worn_rock_natural_01/worn_rock_natural_01_Diffuse_2k.jpg",
+   "nor_gl": "library/textures/surface/worn_rock_natural_01/worn_rock_natural_01_nor_gl_2k.jpg",
+   "Rough": "library/textures/surface/worn_rock_natural_01/worn_rock_natural_01_Rough_2k.jpg",
+   "Displacement": "library/textures/surface/worn_rock_natural_01/worn_rock_natural_01_Displacement_2k.jpg"
+  },
+  "substance": "stone"
+ },
+ "grey_plaster_03": {
+  "id": "grey_plaster_03",
+  "name": "Grey Plaster 03",
+  "size_m": [
+   1.0,
+   1.0
+  ],
+  "tags": [
+   "rough",
+   "grey",
+   "uneven"
+  ],
+  "authors": [
+   "Rob Tuytel"
+  ],
+  "license": "CC0",
+  "res": "2k",
+  "maps": {
+   "Diffuse": "library/textures/surface/grey_plaster_03/grey_plaster_03_Diffuse_2k.jpg",
+   "nor_gl": "library/textures/surface/grey_plaster_03/grey_plaster_03_nor_gl_2k.jpg",
+   "Rough": "library/textures/surface/grey_plaster_03/grey_plaster_03_Rough_2k.jpg",
+   "Displacement": "library/textures/surface/grey_plaster_03/grey_plaster_03_Displacement_2k.jpg"
+  },
+  "substance": "mortar"
+ },
+ "concrete": {
+  "id": "concrete",
+  "name": "Concrete",
+  "size_m": [
+   4.0,
+   4.0
+  ],
+  "tags": [
+   "bare",
+   "old",
+   "weathered",
+   "panels"
+  ],
+  "authors": [
+   "Rob Tuytel"
+  ],
+  "license": "CC0",
+  "res": "2k",
+  "maps": {
+   "Diffuse": "library/textures/surface/concrete/concrete_Diffuse_2k.jpg",
+   "nor_gl": "library/textures/surface/concrete/concrete_nor_gl_2k.jpg",
+   "Rough": "library/textures/surface/concrete/concrete_Rough_2k.jpg",
+   "Displacement": "library/textures/surface/concrete/concrete_Displacement_2k.jpg"
+  },
+  "substance": "concrete"
+ },
+ "clay_plaster": {
+  "id": "clay_plaster",
+  "name": "Clay Plaster",
+  "size_m": [
+   2.0,
+   2.0
+  ],
+  "tags": [
+   "rough",
+   "wall",
+   "plaster",
+   "plastered",
+   "cracked",
+   "exterior",
+   "cracks",
+   "scratched",
+   "uneven",
+   "clay",
+   "coarse"
+  ],
+  "authors": [
+   "Amal Kumar"
+  ],
+  "license": "CC0",
+  "res": "2k",
+  "maps": {
+   "Diffuse": "library/textures/surface/clay_plaster/clay_plaster_Diffuse_2k.jpg",
+   "nor_gl": "library/textures/surface/clay_plaster/clay_plaster_nor_gl_2k.jpg",
+   "Rough": "library/textures/surface/clay_plaster/clay_plaster_Rough_2k.jpg",
+   "Displacement": "library/textures/surface/clay_plaster/clay_plaster_Displacement_2k.jpg"
+  },
+  "substance": "brick"
+ },
+ "rock_pitted_mossy": {
+  "id": "rock_pitted_mossy",
+  "name": "Rock Pitted Mossy",
+  "size_m": [
+   1.0,
+   1.0
+  ],
+  "tags": [
+   "cracked",
+   "weathered",
+   "rock face",
+   "rock",
+   "boulder",
+   "red",
+   "discolored",
+   "eroded",
+   "moss",
+   "stone",
+   "uneven",
+   "rough",
+   "orange"
+  ],
+  "authors": [
+   "Dimitrios Savva",
+   "Rico Cilliers"
+  ],
+  "license": "CC0",
+  "res": "2k",
+  "maps": {
+   "Diffuse": "library/textures/surface/rock_pitted_mossy/rock_pitted_mossy_Diffuse_2k.jpg",
+   "nor_gl": "library/textures/surface/rock_pitted_mossy/rock_pitted_mossy_nor_gl_2k.jpg",
+   "Rough": "library/textures/surface/rock_pitted_mossy/rock_pitted_mossy_Rough_2k.jpg",
+   "Displacement": "library/textures/surface/rock_pitted_mossy/rock_pitted_mossy_Displacement_2k.jpg"
+  },
+  "substance": "tuff"
+ },
+ "clay_floor_001": {
+  "id": "clay_floor_001",
+  "name": "Clay Floor 001",
+  "size_m": [
+   2.0,
+   2.0
+  ],
+  "tags": [
+   "flat",
+   "cracked",
+   "floor",
+   "plain",
+   "brown",
+   "discolored",
+   "clay",
+   "yellow",
+   "painted"
+  ],
+  "authors": [
+   "Dimitrios Savva",
+   "Rico Cilliers"
+  ],
+  "license": "CC0",
+  "res": "2k",
+  "maps": {
+   "Diffuse": "library/textures/surface/clay_floor_001/clay_floor_001_Diffuse_2k.jpg",
+   "nor_gl": "library/textures/surface/clay_floor_001/clay_floor_001_nor_gl_2k.jpg",
+   "Rough": "library/textures/surface/clay_floor_001/clay_floor_001_Rough_2k.jpg",
+   "Displacement": "library/textures/surface/clay_floor_001/clay_floor_001_Displacement_2k.jpg"
+  },
+  "substance": "clay"
+ },
+ "seaside_rock": {
+  "id": "seaside_rock",
+  "name": "Seaside Rock",
+  "size_m": [
+   2.0,
+   2.0
+  ],
+  "tags": [
+   "rough",
+   "weathered",
+   "seaside",
+   "rock face",
+   "rock",
+   "coastal",
+   "cliff",
+   "shore",
+   "solid rock",
+   "coastal landscape"
+  ],
+  "authors": [
+   "Dimitrios Savva"
+  ],
+  "license": "CC0",
+  "res": "2k",
+  "maps": {
+   "Diffuse": "library/textures/surface/seaside_rock/seaside_rock_Diffuse_2k.jpg",
+   "nor_gl": "library/textures/surface/seaside_rock/seaside_rock_nor_gl_2k.jpg",
+   "Rough": "library/textures/surface/seaside_rock/seaside_rock_Rough_2k.jpg",
+   "Displacement": "library/textures/surface/seaside_rock/seaside_rock_Displacement_2k.jpg"
+  },
+  "substance": "slate"
+ },
+ "rough_wood": {
+  "id": "rough_wood",
+  "name": "Rough Wood",
+  "size_m": [
+   0.5,
+   0.5
+  ],
+  "tags": [
+   "rough",
+   "weathered",
+   "old",
+   "uneven",
+   "aged",
+   "cracked",
+   "natural grain",
+   "natural wood",
+   "natural",
+   "timber"
+  ],
+  "authors": [
+   "Rob Tuytel"
+  ],
+  "license": "CC0",
+  "res": "2k",
+  "maps": {
+   "Diffuse": "library/textures/surface/rough_wood/rough_wood_Diffuse_2k.jpg",
+   "nor_gl": "library/textures/surface/rough_wood/rough_wood_nor_gl_2k.jpg",
+   "Rough": "library/textures/surface/rough_wood/rough_wood_Rough_2k.jpg",
+   "Displacement": "library/textures/surface/rough_wood/rough_wood_Displacement_2k.jpg"
+  },
+  "substance": "wood",
+  "grain": "v"
+ },
+ "riet_01": {
+  "id": "riet_01",
+  "name": "Riet 01",
+  "size_m": [
+   2.5,
+   2.5
+  ],
+  "tags": [
+   "reed",
+   "grey",
+   "old",
+   "village",
+   "straw",
+   "hut",
+   "thatch",
+   "rural",
+   "medieval"
+  ],
+  "authors": [
+   "Rob Tuytel"
+  ],
+  "license": "CC0",
+  "res": "2k",
+  "maps": {
+   "Diffuse": "library/textures/surface/riet_01/riet_01_Diffuse_2k.jpg",
+   "nor_gl": "library/textures/surface/riet_01/riet_01_nor_gl_2k.jpg",
+   "Rough": "library/textures/surface/riet_01/riet_01_Rough_2k.jpg",
+   "Displacement": "library/textures/surface/riet_01/riet_01_Displacement_2k.jpg"
+  },
+  "substance": "straw",
+  "grain": "v"
+ },
+ "green_metal_rust": {
+  "id": "green_metal_rust",
+  "name": "Green Metal Rust",
+  "size_m": [
+   1.0,
+   1.0
+  ],
+  "tags": [
+   "painted",
+   "ship",
+   "tank",
+   "industrial",
+   "canister"
+  ],
+  "authors": [
+   "Rob Tuytel"
+  ],
+  "license": "CC0",
+  "res": "2k",
+  "maps": {
+   "Diffuse": "library/textures/surface/green_metal_rust/green_metal_rust_Diffuse_2k.jpg",
+   "nor_gl": "library/textures/surface/green_metal_rust/green_metal_rust_nor_gl_2k.jpg",
+   "Rough": "library/textures/surface/green_metal_rust/green_metal_rust_Rough_2k.jpg",
+   "Displacement": "library/textures/surface/green_metal_rust/green_metal_rust_Displacement_2k.jpg"
+  },
+  "substance": "painted_iron"
+ },
+ "rusty_metal_sheet": {
+  "id": "rusty_metal_sheet",
+  "name": "Rusty Metal Sheet",
+  "size_m": [
+   2.0,
+   2.0
+  ],
+  "tags": [
+   "metal",
+   "rusty",
+   "rust",
+   "rusted",
+   "corroded",
+   "sheet",
+   "tarnished",
+   "oxidized",
+   "corroded metal sheet"
+  ],
+  "authors": [
+   "Amal Kumar"
+  ],
+  "license": "CC0",
+  "res": "2k",
+  "maps": {
+   "Diffuse": "library/textures/surface/rusty_metal_sheet/rusty_metal_sheet_Diffuse_2k.jpg",
+   "nor_gl": "library/textures/surface/rusty_metal_sheet/rusty_metal_sheet_nor_gl_2k.jpg",
+   "Rough": "library/textures/surface/rusty_metal_sheet/rusty_metal_sheet_Rough_2k.jpg",
+   "Displacement": "library/textures/surface/rusty_metal_sheet/rusty_metal_sheet_Displacement_2k.jpg"
+  },
+  "substance": "metal",
+  "grain": "v"
+ },
+ "gravelly_sand": {
+  "id": "gravelly_sand",
+  "name": "Gravelly Sand",
+  "size_m": [
+   2.48,
+   2.48
+  ],
+  "tags": [
+   "sand",
+   "gravel",
+   "stony",
+   "terrain",
+   "ground",
+   "dirt",
+   "coarse",
+   "debris",
+   "dusty"
+  ],
+  "authors": [
+   "Dario Barresi"
+  ],
+  "license": "CC0",
+  "res": "2k",
+  "maps": {
+   "Diffuse": "library/textures/surface/gravelly_sand/gravelly_sand_Diffuse_2k.jpg",
+   "nor_gl": "library/textures/surface/gravelly_sand/gravelly_sand_nor_gl_2k.jpg",
+   "Rough": "library/textures/surface/gravelly_sand/gravelly_sand_Rough_2k.jpg",
+   "Displacement": "library/textures/surface/gravelly_sand/gravelly_sand_Displacement_2k.jpg"
+  },
+  "substance": "sand"
+ },
+ "dirt": {
+  "id": "dirt",
+  "name": "Dirt",
+  "size_m": [
+   2.0,
+   2.0
+  ],
+  "tags": [
+   "dirt",
+   "dirty",
+   "ground",
+   "nature",
+   "earth",
+   "dusty",
+   "rocky",
+   "debris",
+   "footprints"
+  ],
+  "authors": [
+   "Charlotte Baglioni"
+  ],
+  "license": "CC0",
+  "res": "2k",
+  "maps": {
+   "Diffuse": "library/textures/surface/dirt/dirt_Diffuse_2k.jpg",
+   "nor_gl": "library/textures/surface/dirt/dirt_nor_gl_2k.jpg",
+   "Rough": "library/textures/surface/dirt/dirt_Rough_2k.jpg",
+   "Displacement": "library/textures/surface/dirt/dirt_Displacement_2k.jpg"
+  },
+  "substance": "earth"
+ },
+ "white_plaster_02": {
+  "id": "white_plaster_02",
+  "name": "White Plaster 02",
+  "size_m": [
+   1.0,
+   1.0
+  ],
+  "tags": [
+   "smooth",
+   "flat",
+   "even"
+  ],
+  "authors": [
+   "Rob Tuytel"
+  ],
+  "license": "CC0",
+  "res": "2k",
+  "maps": {
+   "Diffuse": "library/textures/surface/white_plaster_02/white_plaster_02_Diffuse_2k.jpg",
+   "nor_gl": "library/textures/surface/white_plaster_02/white_plaster_02_nor_gl_2k.jpg",
+   "Rough": "library/textures/surface/white_plaster_02/white_plaster_02_Rough_2k.jpg",
+   "Displacement": "library/textures/surface/white_plaster_02/white_plaster_02_Displacement_2k.jpg"
+  },
+  "substance": "plaster"
+ }
+}

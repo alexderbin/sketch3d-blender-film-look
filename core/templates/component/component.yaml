@@ -1,0 +1,26 @@
+# Component passport (ARCHITECTURE.md). A template: copy the folder to components/<name>/, replace "example" with
+# the component and step name, the section, the knobs; names are English snake_case, and so are the knob values.
+component: example                  # = the folder name components/<name>
+version: 1                          # part of the cache key: a change in the step's meaning — +1
+owner: maintainer <who>
+bench: bench/bench.py               # the component's reference benchmark
+# hooks:                            # optional: the core's extension points (core/hooks.py) — the core calls the component without importing it
+#   light: components.example.api:light_changed     # points: light, maps_before, maps_after, frame_near, frame_materials, weather
+# For neighbors — only components/example/api.py (the public entry: the mechanism stays with the owner; the Blender part is lazy, the _BL list).
+steps:
+  example:                          # step name — English snake_case, unique across the whole project
+    section: site                   # the scene model section the step is responsible for
+    kind: adds                      # adds | refines | animates | output
+    reads: []                       # sections the step reads (must be written earlier in the pipeline)
+    writes: [site]                  # sections the step writes
+    plan: steps.py:plan_example     # project Python: model + knobs → plan (dict, JSON)
+    build: steps.py:build_example   # Blender: plan → scene objects; returns gives and statistics
+    keys: {seed: 1, density: null, mode: fast}            # knobs and defaults (null — allowed, no default)
+    values: {seed: int, density: float, mode: [fast, full]}   # type (int, float, str, bool, WxH, point, list), an enumeration or catalog:<file>#path
+    description: {seed: "seed", density: "density, pcs/m²", mode: "fast — sketch, full — in full"}
+    profiles: {sketch: {mode: fast}, final: {mode: full}}   # per stage: {knobs} | plan | off;
+                                    # sketch — a stand-in at the model's size (core/blender/stand_in.py, knob look: stand_in) or off
+    gives: [example_plan]           # data for the following steps only; counters and seconds are log statistics (stats)
+    code: [components/example/steps.py]   # files whose edit rebuilds the step (their package imports too)
+    cost: light                     # light | medium | heavy (heavy — under guard)
+    on_fail: stop                   # stop | fallback

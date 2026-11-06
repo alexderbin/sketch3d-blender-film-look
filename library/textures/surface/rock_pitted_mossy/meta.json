@@ -1,0 +1,36 @@
+{
+ "id": "rock_pitted_mossy",
+ "name": "Rock Pitted Mossy",
+ "size_m": [
+  1.0,
+  1.0
+ ],
+ "tags": [
+  "cracked",
+  "weathered",
+  "rock face",
+  "rock",
+  "boulder",
+  "red",
+  "discolored",
+  "eroded",
+  "moss",
+  "stone",
+  "uneven",
+  "rough",
+  "orange"
+ ],
+ "authors": [
+  "Dimitrios Savva",
+  "Rico Cilliers"
+ ],
+ "license": "CC0",
+ "res": "2k",
+ "maps": {
+  "Diffuse": "library/textures/surface/rock_pitted_mossy/rock_pitted_mossy_Diffuse_2k.jpg",
+  "nor_gl": "library/textures/surface/rock_pitted_mossy/rock_pitted_mossy_nor_gl_2k.jpg",
+  "Rough": "library/textures/surface/rock_pitted_mossy/rock_pitted_mossy_Rough_2k.jpg",
+  "Displacement": "library/textures/surface/rock_pitted_mossy/rock_pitted_mossy_Displacement_2k.jpg"
+ },
+ "substance": "tuff"
+}

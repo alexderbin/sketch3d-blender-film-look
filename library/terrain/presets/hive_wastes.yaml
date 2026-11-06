@@ -1,0 +1,20 @@
+name: hive_wastes
+title: Wasteland around a hive — ash dunes, a quarry with a poisoned lake, spoil heaps, embankments
+biome: wasteland
+cases: [approach to the hive across the wasteland, fight in the dunes, ambush at the spoil heap, quarry, view of the hive from the spoil cone]
+knobs: {face: [0, 359], step: [45, 75], dune_h: [2.5, 5.0], pit_at: [180, 240], pit_r: [70, 110], pit_d: [30, 55], sinks: [2, 6]}
+relief:
+  size: 640
+  res: 0.8
+  ground: dirt
+  erosion: {amount: 0.15}
+  use:
+    - {type: hive_wastes, id: hive, at: [-40, 40], face: "{face}", step: "{step}", dune_h: "{dune_h}", pit_at: "{pit_at}", pit_r: "{pit_r}", pit_d: "{pit_d}"}
+  generate:
+    - {gen: crater, id: sink, n: "{sinks}", area: {ring: [150, 290], at: [-40, 40]}, params: {r: [6, 14], depth: [5, 11], rim: 0.3}, gap: 1.5}
+  far: {h: 90}
+views:
+  - {name: wide, from: hive.edge, h: 80, look: hive.pit, look_h: 0, lens: 24, back: 150}
+  - {name: to_hive_across_dunes, from: hive.pipe, h: 1.7, look: hive.hive, look_h: 10, lens: 26, back: 60, walk: true}
+  - {name: from_spoil_heap, from: hive.spoil, h: 2.0, look: hive.hive, look_h: 0, lens: 26, walk: true}
+  - {name: quarry_pit, from: hive.rim, h: 1.8, look: hive.pit, look_h: 25, lens: 24, walk: true}

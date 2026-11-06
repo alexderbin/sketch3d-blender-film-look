@@ -1,0 +1,30 @@
+{
+ "id": "rock_surface",
+ "name": "Rock Surface",
+ "size_m": [
+  2.0,
+  2.0
+ ],
+ "tags": [
+  "rough",
+  "weathered",
+  "discolored",
+  "dirty",
+  "stone",
+  "rock",
+  "boulder",
+  "coarse"
+ ],
+ "authors": [
+  "Amal Kumar"
+ ],
+ "license": "CC0",
+ "res": "2k",
+ "maps": {
+  "Diffuse": "library/textures/surface/rock_surface/rock_surface_Diffuse_2k.jpg",
+  "nor_gl": "library/textures/surface/rock_surface/rock_surface_nor_gl_2k.jpg",
+  "Rough": "library/textures/surface/rock_surface/rock_surface_Rough_2k.jpg",
+  "Displacement": "library/textures/surface/rock_surface/rock_surface_Displacement_2k.jpg"
+ },
+ "substance": "stone"
+}

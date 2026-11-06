@@ -1,0 +1,18 @@
+name: hillfort_spur
+title: Promontory hillfort above a river — a cut-off rampart across the neck
+biome: temperate
+cases: [siege from the field, assault on the rampart, sortie to the river, view from the cape over the river, crossing below the hillfort]
+knobs: {face: [0, 359], h: [18, 30], spur_l: [120, 190], spur_w: [70, 115], lines: [1, 2], age: [600, 1500]}
+relief:
+  size: 560
+  res: 0.7
+  ground: grass
+  erosion: {amount: 0.35}
+  use:
+    - {type: hillfort, id: fort, kind: spur, at: [0, -120], face: "{face}", h: "{h}", spur_l: "{spur_l}", spur_w: "{spur_w}", lines: "{lines}", age: "{age}"}
+  far: {h: 100}
+views:
+  - {name: wide, from: fort.field, h: 60, look: fort.tip, look_h: 0, lens: 26, back: 80}
+  - {name: rampart_from_field, from: fort.field, h: 1.7, look: fort.neck, look_h: 3, lens: 30, walk: true}
+  - {name: cape_from_river_below, from: fort.below, h: 1.6, look: fort.tip, look_h: 14, lens: 24, back: 20, walk: true}
+  - {name: from_cape_to_river, from: fort.tip, h: 1.8, look: fort.far_bank, look_h: 0, lens: 26, walk: true}

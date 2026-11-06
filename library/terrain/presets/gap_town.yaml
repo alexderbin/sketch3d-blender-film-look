@@ -1,0 +1,17 @@
+name: gap_town
+title: Town in a ridge gap — a river and a road through the ridge
+biome: temperate
+cases: [outpost in the gap, fight for the gap, caravan across the ridge, view from the ridge]
+knobs: {face: [0, 359], h: [50, 90], gap: [100, 170], w: [10, 20]}
+relief:
+  size: 600
+  res: 0.75
+  ground: grass
+  erosion: {amount: 0.4}
+  use:
+    - {type: gap, id: pass, at: [0, 0], face: "{face}", h: "{h}", gap: "{gap}", w: "{w}"}
+  far: {h: 130}
+views:
+  - {name: wide, from: pass.road_in, h: 60, look: pass.gap, look_h: 0, lens: 26, back: 60}
+  - {name: pass_entrance, from: pass.road_in, h: 1.7, look: pass.gap, look_h: 4, lens: 28, walk: true}
+  - {name: from_ridge, from: pass.ridge_l, h: 1.8, look: pass.town, look_h: 0, lens: 24, walk: true}

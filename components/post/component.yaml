@@ -1,0 +1,25 @@
+# Passport of the "Post" component (ARCHITECTURE.md): film look over finished frames — no Blender, the scene is not touched.
+component: post
+version: 1
+owner: film look maintainers
+bench: bench/bench.py
+steps:
+  post:
+    section: cameras                  # output: reads the frames of the "frames" output per camera, writes nothing to the scene
+    kind: output
+    reads: [all]
+    writes: []
+    plan: steps.py:plan_post          # project Python: frames <run>/NN_frames/cam<K>/ → <step folder>/cam<K>.png, contact.jpg, post.json
+    keys: {preset: trailer, palette: null, mix: null, haze_km: null, fstop: null, focus_m: null, grain: null, letterbox: null, video: false, fps: 12}
+    values: {preset: "catalog:components/post/presets.yaml#presets", palette: "catalog:components/post/palettes.yaml#palettes", mix: float,
+             haze_km: float, fstop: float, focus_m: float, grain: float, letterbox: float, video: bool, fps: int}
+    description: {preset: "post preset (presets.yaml) — by format, at the final stage: trailer (the main one), anime, crush, clean", palette: "palette reference (palettes.yaml) on top of the preset",
+                  mix: "share of the reference palette 0..1", haze_km: "extra haze: visibility, km (Koschmieder's law)",
+                  fstop: "DoF: f-number (not below 0.95 — \"not a miniature\")", focus_m: "DoF: focus, m (by default — the middle of the frame)",
+                  grain: "grain 0..0.1 — only for long 16:9 at a high bitrate, not for Shorts",
+                  letterbox: "letterbox: aspect ratio (2.39) or 0 — no letterbox", video: "a clip of the graded frames in camera order", fps: "frames per second of the clip"}
+    hint: "an output after \"frames\", last (outputs: [frames: {…}, post: {preset: trailer}]); changing the preset re-runs only post; a clip — video: true"
+    code: [components/post/steps.py, components/post/look.py, components/post/presets.yaml, components/post/palettes.yaml]
+    profiles: {sketch: "off"}          # draft — no post: the film look is decided at the test stage, a draft frame has no depth
+    cost: light
+    on_fail: stop

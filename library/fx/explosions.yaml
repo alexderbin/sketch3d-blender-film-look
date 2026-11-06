@@ -1,0 +1,187 @@
+# Explosions: the knowledge of the mechanism — what it consists of, which layers, and how it changes by kind,
+# soil, strength and distance.
+# Read by: components/fx/fx_bake.py (asset baking), components/fx/bl_fx.py (assembly in the frame).
+# Units: m, s; W — kg of TNT (for fuel, M — kg of fuel). Light and glow are "screen-space": in the frame × 2^(−EV
+# of the far node), so fire reads equally well by day (EV ≈ −5) and at night (EV ≈ +2.3); at night the fire is the
+# main light, brighter by the at_night multiplier.
+
+scale:                                  # from asset to event — the scaling law
+  size: 0.3333                          # s = (W / W_asset)^(1/3) — Hopkinson–Cranz
+  time_earlier: 1.0                        # flash, explosive fire, ejecta — × s^1
+  time_later: 0.5                      # rise and settling of smoke and dust — × s^0.5 (Froude similarity)
+  limit: [0.25, 4.0]                     # s outside the limit — the asset is of the wrong class (a warning goes to the log)
+  at_night: 1.4                              # fire and flash are this many times brighter on screen at night (fire is the main light; 2 washes out the frame)
+
+kinds:                                     # kind → layer shares; event strength — the kind's TNT multiplier (strength 1 — typical)
+  grenade:                                # fragmentation hand grenade (M67: 180 g of Composition B ≈ 0.24 kg of TNT)
+    W: 0.24
+    fire: {asset: explosive, strength: 1.0, T: [1600, 3200], dur: 0.12}
+    smoke: {albedo: 0.42, color: [0.78, 0.76, 0.72], density: 0.8, dur: 2.5}
+    flash: {K: 4200, strength: 1.0, dur: 0.06}
+    soil: 0.5                            # share of soil ejecta (0 — none): a grenade gives a puff, not a column
+    ring: 0.7                           # a ring of dust along the ground
+    sparks: 40
+    clods: 24
+    scorch: 0.9                             # scorch radius at W = 1 kg, m (× W^(1/3))
+  mine:                                   # 81 mm mortar (~1.3 kg)
+    W: 1.3
+    fire: {asset: explosive, strength: 1.0, T: [1600, 3300], dur: 0.15}
+    smoke: {albedo: 0.30, color: [0.55, 0.52, 0.48], density: 1.0, dur: 6.0}
+    flash: {K: 4200, strength: 1.2, dur: 0.07}
+    soil: 1.0
+    ring: 0.8
+    sparks: 30
+    clods: 40
+    scorch: 0.9
+  projectile:                                 # 155 mm artillery (~6.6 kg): the main thing is the soil column and dark smoke
+    W: 6.6
+    fire: {asset: explosive, strength: 1.0, T: [1600, 3400], dur: 0.18}
+    smoke: {albedo: 0.20, color: [0.40, 0.38, 0.35], density: 1.2, dur: 8.0}
+    flash: {K: 4000, strength: 1.5, dur: 0.08}
+    soil: 1.0
+    ring: 1.0
+    sparks: 30
+    clods: 60
+    scorch: 1.0
+  bomb:                                  # 250 kg aerial bomb (~100 kg)
+    W: 100
+    fire: {asset: explosive, strength: 1.0, T: [1600, 3400], dur: 0.3}
+    smoke: {albedo: 0.18, color: [0.38, 0.36, 0.33], density: 1.3, dur: 15.0}
+    flash: {K: 3800, strength: 2.0, dur: 0.12}
+    soil: 1.0
+    ring: 1.0
+    sparks: 20
+    clods: 80
+    scorch: 1.0
+  charge:                                  # demolition charge (C4, ~5 kg): whitish smoke, little fire
+    W: 5.0
+    fire: {asset: explosive, strength: 0.6, T: [1400, 3000], dur: 0.08}
+    smoke: {albedo: 0.55, color: [0.85, 0.84, 0.82], density: 1.0, dur: 6.0}
+    flash: {K: 5000, strength: 1.5, dur: 0.05}
+    soil: 0.7
+    ring: 1.0
+    sparks: 15
+    clods: 40
+    scorch: 0.8
+  fuel:                                # vehicles, a barrel, gas: a rolling fireball and black smoke (M — kg of fuel)
+    M: 20
+    fire: {asset: fuel, strength: 0.13, light: 0.5, T: [1300, 2400], dur: 1.2, exponent: 2.2, soot: 1.0, optical_depth: 1.5}   # 0.45·M^(1/3) s ≈ 1.2 s at 20 kg;
+                                          # optical depth — dense fire (absorption κ = 1.5/m): it glows by temperature, not by size
+    combustion: {Q_kw: 3000, dur: 40}      # after the fireball the vehicle burns: a Heskestad flame of ~3.8 m, a column of smoke
+    smoke: {albedo: 0.06, color: [0.10, 0.09, 0.08], density: 1.5, dur: 12.0}
+    flash: {K: 1900, strength: 0.35, dur: 0.15}  # there is no sharp flash like an explosive's — the ball itself glows (at night a value of 1.0 would wash out half the frame)
+    soil: 0                              # there is almost no ejecta: fire and smoke above the ground
+    ring: 0.3
+    sparks: 60                             # burning debris
+    clods: 0                              # no crater — no clods of earth
+    scorch: 1.4
+  airburst:                              # airburst (anti-aircraft, shrapnel): a black puff, no soil
+    W: 2.0
+    fire: {asset: explosive, strength: 0.8, T: [1300, 2600], dur: 0.1}
+    smoke: {albedo: 0.08, color: [0.14, 0.13, 0.12], density: 1.2, dur: 10.0}
+    flash: {K: 4000, strength: 1.2, dur: 0.06}
+    soil: 0
+    ring: 0
+    sparks: 50
+    clods: 0
+    scorch: 0
+  fire_ball:                           # a spell, an incendiary shell: a fire flash as a ball, little smoke, embers; no soil.
+    M: 0.5                                # the same fuel asset, the mass sets the size (D ≈ 5.8 × 0.5^(1/3) ≈ 4.6 m)
+    fire: {asset: ball, strength: 0.9, T: [1700, 3200], dur: 0.4, exponent: 1.0, soot: 1.0, tint: [1.0, 1.0, 1.0]}   # tint — the color of the magic
+    smoke: {albedo: 0.35, color: [0.45, 0.42, 0.40], density: 0.25, dur: 1.5}
+    flash: {K: 2400, strength: 1.2, dur: 0.08}
+    soil: 0
+    ring: 0
+    sparks: 90                             # embers: slow, they live longer
+    sparks_v: 11
+    sparks_life: [0.5, 1.6]
+    clods: 0
+    scorch: 0.6
+  blaze:                                  # burning without an explosion: debris, a building, spilled fuel; "strength" is a multiplier of the power Q
+    W: 0
+    fire: {asset: combustion, strength: 0.45, T: [1400, 2600], dur: 0, exponent: 1.0, soot: 0.5}
+    smoke: {albedo: 0.08, color: [0.12, 0.11, 0.10], density: 1.0, dur: 9999}
+    flash: {K: 1900, strength: 0, dur: 0}
+    combustion: {Q_kw: 500, dur: 9999}     # 500 kW — a campfire, debris (flame ~1.8 m); vehicles — 3000, a house — 10 000+
+    soil: 0
+    ring: 0
+    sparks: 0
+    clods: 0
+    scorch: 0
+  napalm:                                 # flamethrower, spilled fuel: a ball flash and a burning strip — a chain of hotspots
+    M: 2
+    fire: {asset: ball, strength: 0.5, T: [1200, 2400], dur: 0.6, exponent: 1.0, soot: 0.6}
+    smoke: {albedo: 0.06, color: [0.10, 0.09, 0.08], density: 1.2, dur: 6.0}
+    flash: {K: 1900, strength: 0.8, dur: 0.2}
+    combustion: {Q_kw: 180, dur: 20, strip: [8, 8]}   # strip 8 m, 8 hotspots (more frequent ones merge); direction — the event's "to", otherwise random
+    soil: 0
+    ring: 0
+    sparks: 30
+    sparks_v: 9
+    sparks_life: [0.5, 1.4]
+    clods: 0
+    scorch: 1.0
+  # later: plasma and energy (a blue flash, ions, no smoke), space (no buoyancy or smoke),
+  # water (a water column and splashes)
+
+soils:                                   # the site's soil → ejecta dust and clods
+  snow:   {dust: [0.86, 0.88, 0.92], albedo: 0.80, clods: [0.92, 0.93, 0.95], ground: 0.25}   # ground — the share of dark soil for strong ones (W > 1)
+  sand:  {dust: [0.86, 0.72, 0.48], albedo: 0.55, clods: [0.72, 0.62, 0.46], ground: 0}
+  ground:  {dust: [0.60, 0.42, 0.24], albedo: 0.40, clods: [0.30, 0.24, 0.18], ground: 0}   # more saturated: it turned gray under a blue sky
+  mud:  {dust: [0.34, 0.25, 0.16], albedo: 0.30, clods: [0.20, 0.16, 0.12], ground: 0}
+  stone: {dust: [0.62, 0.60, 0.57], albedo: 0.50, clods: [0.45, 0.44, 0.42], ground: 0}
+  concrete:  {dust: [0.70, 0.69, 0.66], albedo: 0.55, clods: [0.55, 0.55, 0.53], ground: 0}
+  metal: {dust: null, clods: null, sparks: 3.0}                      # deck, armor: no ejecta, more sparks
+  water:   {dust: null, clods: null, later: water column}
+
+levels:                                   # by the on-screen size of the explosion body (px of the frame height)
+  close:        {"off": 150, body: high, volume: "4/64", volumetric_shadows: true,  lamp_shadow: true,  clods: 1.0, sparks: 1.0}
+  medium:       {"off": 40,  body: low,  volume: null,   volumetric_shadows: false, lamp_shadow: false, clods: 0.4, sparks: 0.5}
+  far:          {"off": 8,   body: low,  volume: null,   volumetric_shadows: false, lamp_shadow: false, clods: 0,   sparks: 0.2}
+  very_far:     {"off": 0,   body: null,    volume: null,   volumetric_shadows: false, lamp_shadow: false, clods: 0,   sparks: 0}   # flash only
+
+assets:                                   # baking (components/fx/fx_bake.py): Mantaflow without an adaptive domain, Blosc half; W/M — what it was baked at; m
+  explosive:                             # explosive body: short fire, billowing smoke without a "mushroom" (the heat buoyancy is small)
+    W: 6.6
+    domain: [18, 18, 12]
+    core: {radius: 0.35, height: 0.8, n_particles: 5000, speed: 12, spread: 6, frames: [10, 12]}
+    flanks: {n_particles: 2000, speed: 8, spread: 4}
+    combustion: {speed_reaction: 2.0, smoke_fire: 1.0, whirls: 0.25, buoyancy: [0.2, 0.5], dissolve: 0}
+    n_frames: 96                            # 4 s at 24 fps
+    levels: {high: {resolution: 128, noise: 2}, low: {resolution: 64, noise: 0}}
+  ejecta:                                 # soil ejecta: few particles on arcs (jets), the dust is heavier than air — it falls; the ring runs along the ground
+    W: 6.6                                # apex ≈ v²/2g: 12 m/s → ~7 m for a 155 mm shell
+    domain: [32, 32, 18]
+    injection: 0.6                            # the dust follows the particle, not ahead of it (a weightless gas would be carried upward by the particle's velocity)
+    cone: {radius: 0.5, n_particles: 60, speed: 9, angle: 55, life: 22, life_spread: 0.6, size_particle: 0.45, frames: [10, 11]}
+    ring: {radius: 0.6, n_particles: 120, speed: 8, spread: 3, life: 10, life_spread: 0.5, size_particle: 0.35, frames: [10, 11]}
+    combustion: {speed_reaction: 0, smoke_fire: 0, whirls: 0.45, buoyancy: [-2.5, 0.0], dissolve: 48}
+    n_frames: 96
+    levels: {high: {resolution: 128, noise: 2}, low: {resolution: 64, noise: 0}}
+  ball:                                    # a round fireball (a sphere mesh emits fuel for 2–4 frames): a fireball spell and the flash
+    M: 1                                  # of napalm; for fuel see the volleys below
+    domain: [9, 9, 13]                     # by similarity: size × (M/1)^(1/3), the fire phase × s (CCPS: t ∝ M^(1/3))
+    ball: {radius: 0.45, height: 0.8, frames: [10, 12], normal: 7, up: 6, fuel_amount: 10.0, heat: 4.0, layer: 0.4}   # from the vehicle (~1 m), it does not hang
+    combustion: {speed_reaction: 2.0, smoke_fire: 1.5, whirls: 0.4, buoyancy: [0.2, 6.0], dissolve: 0, fire_max: 6.0, fire_min: 1.5}
+    n_frames: 96
+    levels: {high: {resolution: 128, noise: 2}, low: {resolution: 64, noise: 0}}
+  fuel:                                # fuel fireball (vehicles, a barrel): volleys — a burst source in Mantaflow:
+    M: 1                                  # 3 dome flashes shifted by 2 and 4 frames, fuel rays of different lengths (the particle decelerates and dies out),
+    domain: [10, 10, 14]                   # a FIRE flow — soot only from combustion; baked small (1 kg: D ≈ 5.8 m, fire ≈ 0.5 s), the node stretches it
+    emitter: {radius: 0.45, dome: -0.1, fuel_amount: 1.2, heat: 3.0, up: 3.0, damping: 0.3, life_spread: 0.5, size_particle: 0.25, injection: 1.4, brownian: 3.0}
+    volleys:
+      - {center: [0, 0, 0.5], frame: 10, n_particles: 2000, speed: 14, spread: 7, life: 4}
+      - {center: [0.6, -0.4, 0.8], frame: 12, n_particles: 900, speed: 11, spread: 6, life: 4}
+      - {center: [-0.5, 0.5, 1.1], frame: 14, n_particles: 800, speed: 10, spread: 6, life: 4}
+    combustion: {speed_reaction: 3.0, smoke_fire: 1.5, whirls: 0.35, whirls_fire: 0.6, buoyancy: [0.1, 6.0], dissolve: 0, fire_max: 5.0, fire_min: 1.5}
+    n_frames: 96
+    levels: {high: {resolution: 128, noise: 2}, low: {resolution: 64, noise: 0}}
+  combustion:                                # sustained fire from a surface (Pearson ch. 3: an emitter with a noise texture — flicker), a loop
+    Q_kw: 500                            # what it was baked at: flame by Heskestad L = 0.235·Q^(2/5) − 1.02·D ≈ 1.8 m at D = 1 m
+    domain: [4, 4, 8]
+    hotspot: {radius: 0.5, height: 0.4, frames: [10, 130], fuel_amount: 2.0, heat: 3.0, texture: 1.2, up: 1.5}
+    combustion: {speed_reaction: 1.6, smoke_fire: 1.0, whirls: 0.3, buoyancy: [0.1, 4.0], dissolve: 0, fire_max: 5.0}   # faster reaction — shorter flame (the manual)
+    loop: [64, 130]                      # frames of sustained burning: two instances shifted by half a period, a triangular fade-out
+    cut: [5.5, 7.8]                      # smoke near the domain ceiling fades out with height (asset m) — the cut-off of the column is not visible
+    n_frames: 120
+    levels: {high: {resolution: 128, noise: 2}, low: {resolution: 64, noise: 0}}

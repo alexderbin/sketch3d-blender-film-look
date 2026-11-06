@@ -1,0 +1,18 @@
+name: meander_town
+title: Town in a river bend — a river looping around a cape, a castle on the neck
+biome: temperate
+cases: [town in a river loop, assault on the neck, bridge over an arm of the river, view of the town from the cliff]
+knobs: {face: [0, 359], r: [130, 190], neck: [40, 80], h: [20, 36], w: [18, 32]}
+relief:
+  size: 640
+  res: 0.8
+  ground: grass
+  erosion: {amount: 0.35}
+  use:
+    - {type: meander, id: town, at: [-40, 0], face: "{face}", r: "{r}", neck: "{neck}", h: "{h}", w: "{w}"}
+  far: {h: 90}
+views:
+  - {name: wide, from: town.cliff, h: 70, look: town.town, look_h: 0, lens: 24, back: 80}
+  - {name: neck, from: town.bridge_up, h: 1.7, look: town.neck, look_h: 4, lens: 28, back: 20, walk: true}
+  - {name: from_cliff, from: town.cliff, h: 1.8, look: town.town, look_h: 0, lens: 26, walk: true}
+  - {name: from_river, from: town.bridge_down, h: 1.5, look: town.tip, look_h: 12, lens: 24, walk: true}

@@ -1,0 +1,55 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv
+.venv*
+venv/
+.pytest_cache/
+.ruff_cache/
+
+# Pipeline output and machine state
+out/
+.locks/
+_backup/
+
+# Blender files and heavy intermediates (rebuilt from recipes)
+*.blend
+*.blend1
+*.blend@
+*.exr
+*.vdb
+*.npz
+*.npy
+*.pc2
+*.abc
+*.ply
+*.obj
+
+# Downloaded assets: the library keeps catalogs (yaml, json) in git, the files themselves are fetched by components
+library/**/*.jpg
+library/**/*.jpeg
+library/**/*.png
+library/**/*.tif
+library/**/*.tiff
+library/**/*.hdr
+library/**/*.exr
+library/**/*.zip
+library/**/*.glb
+library/**/*.gltf
+library/**/*.bin
+library/_raw/
+library/textures/terrain/
+library/**/raw/
+library/**/views/
+
+# Scene folders: only the scene description is tracked
+bench/scenes/**/*
+!bench/scenes/*/
+!bench/scenes/*/*.json
+!bench/scenes/*/*.yaml
+
+# OS and editors
+.DS_Store
+.vscode/
+.idea/
+*.swp

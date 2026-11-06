@@ -1,0 +1,32 @@
+{
+ "id": "riet_01",
+ "name": "Riet 01",
+ "size_m": [
+  2.5,
+  2.5
+ ],
+ "tags": [
+  "reed",
+  "grey",
+  "old",
+  "village",
+  "straw",
+  "hut",
+  "thatch",
+  "rural",
+  "medieval"
+ ],
+ "authors": [
+  "Rob Tuytel"
+ ],
+ "license": "CC0",
+ "res": "2k",
+ "maps": {
+  "Diffuse": "library/textures/surface/riet_01/riet_01_Diffuse_2k.jpg",
+  "nor_gl": "library/textures/surface/riet_01/riet_01_nor_gl_2k.jpg",
+  "Rough": "library/textures/surface/riet_01/riet_01_Rough_2k.jpg",
+  "Displacement": "library/textures/surface/riet_01/riet_01_Displacement_2k.jpg"
+ },
+ "substance": "straw",
+ "grain": "v"
+}

@@ -1,0 +1,65 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "frugal-blender-mcp"
+version = "0.2.0"
+description = "Blender MCP server with 4 tools: batched scene edits at a fraction of the context cost"
+readme = "README.md"
+license = "MIT"
+license-files = ["LICENSE"]
+authors = [{ name = "Mohak Malviya" }]
+requires-python = ">=3.11"
+dependencies = ["mcp>=1.20,<2"]
+keywords = ["blender", "mcp", "model-context-protocol", "3d", "ai-agents", "claude", "codex", "cursor"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "Programming Language :: Python :: 3",
+    "Topic :: Multimedia :: Graphics :: 3D Modeling",
+    "Topic :: Multimedia :: Graphics :: 3D Rendering",
+]
+
+[project.urls]
+Homepage = "https://github.com/mohakmalviya/frugal-blender-mcp"
+Issues = "https://github.com/mohakmalviya/frugal-blender-mcp/issues"
+
+[project.scripts]
+frugal-blender-mcp = "compact_mcp.server:main"
+frugal-blender = "compact_mcp.cli:main"
+# Earlier names, kept so existing client configs keep working.
+blender-astra-mcp = "compact_mcp.server:main"
+blender-astra = "compact_mcp.cli:main"
+blender-compact-mcp = "compact_mcp.server:main"
+blender-compact = "compact_mcp.cli:main"
+
+[dependency-groups]
+dev = ["pytest>=8,<10", "ruff>=0.12", "tiktoken>=0.9"]
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/compact_mcp"]
+
+[tool.hatch.build.targets.wheel.force-include]
+"addon/compact_blender" = "compact_mcp/addon/compact_blender"
+
+[tool.hatch.build.targets.sdist]
+exclude = [
+  "artifacts",
+  "dist",
+  ".github",
+  "examples/**/*.png",
+  "examples/**/*.jpg",
+  "examples/**/*.gif",
+  "examples/**/*.webp",
+  "examples/**/*.mp4",
+]
+
+[tool.ruff]
+line-length = 110
+
+[tool.ruff.lint]
+select = ["E4", "E7", "E9", "F", "B"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

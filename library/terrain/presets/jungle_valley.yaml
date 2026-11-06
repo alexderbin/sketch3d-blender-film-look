@@ -1,0 +1,21 @@
+name: jungle_valley
+title: Jungle valley with temple terraces
+biome: jungle
+cases: [expedition to the temple, ambush in the valley, ford crossing, discovery of ruins]
+knobs: {h: [40, 65], w: [90, 125], step: [2.5, 4.0]}
+relief:
+  size: 380
+  ground: grass
+  use:
+    - {type: valley, id: v, at: [0, 0], face: E, h: "{h}", w: "{w}", length: 420}
+  features:
+    - {kind: hill, id: temple_hill, at: [30, 85], r: 45, h: 18, shape: dome}
+    - {kind: terraces, id: temple, at: [30, 85], r: 38, step: "{step}", sharp: 0.7}
+    - {kind: pad, id: altar, at: [30, 85], r: 9, h: "+1", edge: wall}
+  landmarks:
+    - {kind: megaliths, id: columns, at: [30, 85], r: 15, n: 10, h: 5.5}
+  far: {h: 130}
+views:                             # the preset's cameras — for its scenarios (the points are the site's anchors)
+  - {name: wide, from: v.road, h: 50, look: altar.center, look_h: 0, lens: 26, back: 90}
+  - {name: to_temple, from: v.road, h: 1.7, look: altar.center, look_h: 4, lens: 30}
+  - {name: from_altar, from: altar.center, h: 1.8, look: v.river, look_h: 0, lens: 26}

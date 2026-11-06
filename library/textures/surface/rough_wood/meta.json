@@ -1,0 +1,33 @@
+{
+ "id": "rough_wood",
+ "name": "Rough Wood",
+ "size_m": [
+  0.5,
+  0.5
+ ],
+ "tags": [
+  "rough",
+  "weathered",
+  "old",
+  "uneven",
+  "aged",
+  "cracked",
+  "natural grain",
+  "natural wood",
+  "natural",
+  "timber"
+ ],
+ "authors": [
+  "Rob Tuytel"
+ ],
+ "license": "CC0",
+ "res": "2k",
+ "maps": {
+  "Diffuse": "library/textures/surface/rough_wood/rough_wood_Diffuse_2k.jpg",
+  "nor_gl": "library/textures/surface/rough_wood/rough_wood_nor_gl_2k.jpg",
+  "Rough": "library/textures/surface/rough_wood/rough_wood_Rough_2k.jpg",
+  "Displacement": "library/textures/surface/rough_wood/rough_wood_Displacement_2k.jpg"
+ },
+ "substance": "wood",
+ "grain": "v"
+}

@@ -1,0 +1,19 @@
+name: badlands
+title: Badlands — dissected hills
+biome: desert
+cases: [off-road chase, shootout between hills, pathfinder, ambush by the road]
+knobs: {hills: [14, 24]}
+relief:
+  size: 360
+  ground: sand
+  erosion: {amount: 1.5}
+  features:
+    - {kind: road, id: track, path: [[-185, -40], [-60, 10], [40, -20], [185, 30]], w: 4}
+  generate:
+    - {gen: hill, id: butte, n: "{hills}", area: {box: [-170, -170, 170, 170]}, params: {r: [20, 45], h: [8, 30], shape_choice: [dome, bell, mesa], jag: 0.3}, gap: 0.55, keep: [[0, -10, 25]]}
+    - {gen: spire, id: hoodoo, n: [3, 7], area: {box: [-160, -160, 160, 160]}, params: {h: [8, 18], r: [2, 3.5], cap_choice: [true, true, false]}, gap: 1.2, keep: [[0, -10, 25]]}
+  far: {h: 120, kind: mesa}
+views:                             # the preset's cameras — for its scenarios (the points are the site's anchors)
+  - {name: wide, from: [-150, -170], h: 40, look: [0, 0], look_h: 5, lens: 26}
+  - {name: along_road, from: track@0.15, h: 1.7, look: track@0.45, look_h: 1.5, lens: 30}
+  - {name: from_hill, from: [60, 90], h: 25, look: track@0.6, look_h: 0, lens: 28}

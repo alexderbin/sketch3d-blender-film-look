@@ -1,0 +1,20 @@
+name: hillfort_contour
+title: Hillfort on a hill — ramparts along the contour
+biome: temperate
+cases: [siege of the hillfort, assault on the rampart gate, defense on the rampart, view from the rampart over the surroundings, village below the hill]
+knobs: {face: [0, 359], area: [2.5, 6.0], lines: [1, 3], h: [30, 45], works: [multivallate, hillfort], age: [800, 2500]}
+relief:
+  size: 560
+  res: 0.7
+  ground: grass
+  erosion: {amount: 0.3}
+  use:
+    - {type: hillfort, id: fort, kind: contour, at: [0, 0], face: "{face}", area_ha: "{area}", lines: "{lines}", h: "{h}", works: "{works}", age: "{age}", gates: 2}
+  generate:
+    - {gen: lynchets, id: field, n: [0, 1], area: {ring: [220, 260]}, params: {r: [45, 70]}, gap: 1.0}
+  far: {h: 120}
+views:
+  - {name: wide, from: fort.foot, h: 70, look: fort.yard, look_h: 0, lens: 26, back: 140}
+  - {name: gate_outside, from: fort.gate_out, h: 1.7, look: fort.gate, look_h: 3, lens: 28, back: 25, walk: true}
+  - {name: from_rampart, from: fort.crest, h: 1.8, look: fort.foot, look_h: 0, lens: 24, walk: true}
+  - {name: yard, from: fort.yard, h: 1.7, look: fort.gate, look_h: 1, lens: 26, walk: true}

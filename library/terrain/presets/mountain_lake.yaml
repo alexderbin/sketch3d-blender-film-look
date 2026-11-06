@@ -1,0 +1,20 @@
+name: mountain_lake
+title: Mountain lake in a ring of ridges
+biome: alpine
+cases: [camp by the lake, encounter, ambush from the crest, crossing over the ice]
+knobs: {r: [45, 70], ridges: [4, 7], snowline: [18, 32]}
+relief:
+  size: 380
+  ground: snow
+  snowline: "{snowline}"
+  features:
+    - {kind: lake, id: lake, at: [0, 0], r: "{r}", depth: 6}
+    - {kind: pad, id: camp, at: [0, -95], r: 12}
+  generate:
+    - {gen: hill, id: ridge, n: "{ridges}", area: {ring: [120, 175]}, params: {r: [40, 70], h: [10, 18], shape_choice: [bell, dome], jag: 0.2}, gap: 0.6}   # moraine ridges: a free-standing hill is not a mountain (terrain.hill_law)
+    - {gen: spire, id: rock, n: [1, 1], area: {ring: [5, 25]}, params: {h: [10, 16], r: [3.5, 5], cap: false}, gap: 1.0}
+  far: {h: 240, kind: ridged}
+views:                             # the preset's cameras — for its scenarios (the points are the site's anchors)
+  - {name: wide, from: camp.center, h: 50, look: lake.center, look_h: 0, lens: 26, back: 60}
+  - {name: camp, from: camp.center, h: 1.7, look: lake.center, look_h: 0, lens: 28, back: 10}
+  - {name: from_crest, from: [20, 165], h: 30, look: lake.center, look_h: 0, lens: 28}

@@ -1,0 +1,19 @@
+# ejecta, level "low" — the bake summary (components/fx/fx_bake.py); the .vdb frames and stats.json are outside git
+resolution: 64
+noise: 0
+n_frames: 106
+frame_start: 10
+fps: 24
+domain:
+- 32
+- 32
+- 18
+angle:
+- -16.0
+- -16.0
+- 0.0
+height: 12.577
+early_s: 0.5
+bake_s: 9.4
+disk_mb: 47.2
+peak_gb: 0.53

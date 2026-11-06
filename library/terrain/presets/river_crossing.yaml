@@ -1,0 +1,20 @@
+name: river_crossing
+title: River crossing
+biome: temperate
+cases: [crossing under fire, meeting at the ford, ambush on the bank, recon]
+knobs: {face: [0, 359], bend: [-0.35, 0.35], w: [10, 18], hills: [3, 6], cross: [ford, bridge]}
+relief:
+  size: 360
+  ground: grass
+  use:
+    - {type: crossing, id: x, at: [0, 0], face: "{face}", bend: "{bend}", w: "{w}", road_len: 140, cross: "{cross}"}
+  features:
+    - {kind: noise, id: meadow, amp: 1.5, scale: 45}
+  generate:
+    - {gen: hill, id: hill, n: "{hills}", area: {ring: [80, 170]}, params: {r: [35, 70], h: [8, 24], shape: dome, jag: 0.15}, gap: 0.7}
+  far: {h: 130}
+views:                             # the preset's cameras — for its scenarios (the points are the site's anchors)
+  - {name: wide, from: x.near, h: 45, look: x.ford, look_h: 0, lens: 26, back: 40}
+  - {name: crossing, from: x.bank_near, h: 1.7, look: x.ford, look_h: 0, lens: 30, back: 15}
+  - {name: ambush_from_far_bank, from: x.bank_far, h: 1.5, look: x.ford, look_h: 0.5, lens: 35, back: 40}
+  - {name: along_river, from: x_river@0.25, h: 2, look: x.ford, look_h: 0, lens: 28}

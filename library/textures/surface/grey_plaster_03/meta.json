@@ -1,0 +1,25 @@
+{
+ "id": "grey_plaster_03",
+ "name": "Grey Plaster 03",
+ "size_m": [
+  1.0,
+  1.0
+ ],
+ "tags": [
+  "rough",
+  "grey",
+  "uneven"
+ ],
+ "authors": [
+  "Rob Tuytel"
+ ],
+ "license": "CC0",
+ "res": "2k",
+ "maps": {
+  "Diffuse": "library/textures/surface/grey_plaster_03/grey_plaster_03_Diffuse_2k.jpg",
+  "nor_gl": "library/textures/surface/grey_plaster_03/grey_plaster_03_nor_gl_2k.jpg",
+  "Rough": "library/textures/surface/grey_plaster_03/grey_plaster_03_Rough_2k.jpg",
+  "Displacement": "library/textures/surface/grey_plaster_03/grey_plaster_03_Displacement_2k.jpg"
+ },
+ "substance": "mortar"
+}

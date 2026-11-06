@@ -1,0 +1,19 @@
+# explosive, level "low" — the bake summary (components/fx/fx_bake.py); the .vdb frames and stats.json are outside git
+resolution: 64
+noise: 0
+n_frames: 106
+frame_start: 10
+fps: 24
+domain:
+- 18
+- 18
+- 12
+angle:
+- -9.0
+- -9.0
+- 0.0
+height: 8.73
+early_s: 0.5
+bake_s: 10.0
+disk_mb: 46.1
+peak_gb: 0.55

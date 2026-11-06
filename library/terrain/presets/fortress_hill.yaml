@@ -1,0 +1,19 @@
+name: fortress_hill
+title: Fortress on a hill with a village at its foot
+biome: temperate
+cases: [siege, assault on the gate, defense of the courtyard, sortie, reconnaissance from the slope]
+knobs: {face: [0, 359], h: [20, 32], r: [60, 85], yard: [18, 26], village: [3, 6]}
+relief:
+  size: 360
+  ground: grass
+  use:
+    - {type: fort_hill, id: fort, at: [0, 30], face: "{face}", h: "{h}", r: "{r}", yard: "{yard}"}
+  generate:
+    - {gen: pad, id: house, n: "{village}", area: {ring: [105, 150], at: [0, 30]}, params: {r: [7, 12]}, gap: 1.3}
+    - {gen: megaliths, id: stones, n: [0, 1], area: {ring: [95, 145], at: [0, 30]}, params: {r: [7, 11], n: 9, h: [3, 4.5]}, gap: 1.5}
+  far: {h: 140}
+views:                             # the preset's cameras — for its scenarios (the points are the site's anchors)
+  - {name: wide, from: fort.foot, h: 55, look: fort.top, look_h: 0, lens: 26, back: 70}
+  - {name: gate_from_below, from: fort.climb, h: 1.6, look: fort.gate, look_h: 3, lens: 28}
+  - {name: from_foot, from: fort.foot, h: 1.7, look: fort.top, look_h: 6, lens: 30, back: 30}
+  - {name: from_yard, from: fort.yard, h: 1.7, look: fort.foot, look_h: 0, lens: 26}

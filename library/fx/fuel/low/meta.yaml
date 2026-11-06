@@ -1,0 +1,19 @@
+# fuel, level "low" — the bake summary (components/fx/fx_bake.py); the .vdb frames and stats.json are outside git
+resolution: 64
+noise: 0
+n_frames: 106
+frame_start: 10
+fps: 24
+domain:
+- 10
+- 10
+- 14
+angle:
+- -5.0
+- -5.0
+- 0.0
+height: 7.239
+early_s: 0.5
+bake_s: 16.6
+disk_mb: 43.0
+peak_gb: 0.47

@@ -1,0 +1,32 @@
+# Ground photoscans for the site shader (core/surface/bl_terrain_surf.py) — ambientCG, CC0, 2K JPG: color, roughness, height.
+# Download: .venv/bin/python -m components.site.terrain_scans fetch → library/textures/terrain/<id>/, index.json.
+# Chosen from the most downloaded ambientCG assets for the queries
+# grass/ground/gravel/rock/sand/snow/mud/path (API, sort=Popular), by preview; size — the tile side,
+# m (ambientCG dimensionX; where it is not given — 2 m for ground, 3 m for stone); veg — vegetation
+# (the scan's color is kept: the site's tone adjusts only the brightness; for minerals the tint too).
+res: 2K
+maps: [Color, Roughness, Displacement]
+scans:
+  Grass004:        {size: 1.4, veg: true, kind: grass}
+  Grass001:        {size: 1.4, veg: true, kind: dark grass}
+  Ground037:       {size: 2.1, veg: true, kind: forest ground with moss}
+  Ground068:       {size: 2.0, veg: true, kind: ground with moss and needles}
+  ScatteredLeaves009: {size: 1.7, veg: true, kind: leaf litter}   # Grass: ground under a broadleaf canopy (beech, oak)
+  Ground103:       {size: 2.0, kind: dry ground}
+  Ground085:       {size: 2.0, kind: ground with pebbles}
+  Ground110:       {size: 2.1, kind: dark scree}
+  Gravel043:       {size: 1.6, kind: gravel}
+  Ground079S:      {size: 2.0, kind: sand with crushed stone}
+  Ground081:       {size: 2.0, kind: a trail with stones}
+  Ground054:       {size: 3.5, kind: sand}
+  Ground080:       {size: 3.0, kind: rippled sand}
+  Ground071:       {size: 1.75, kind: mud}
+  Rock030:         {size: 3.0, kind: gray-brown rock}
+  Rock060:         {size: 3.0, kind: gray rock}
+  Rock063:         {size: 3.0, kind: mossy rock}
+  Rock029:         {size: 3.0, kind: reddish rock}
+  Rock061:         {size: 3.0, kind: layered rock}
+  Rock035:         {size: 3.0, kind: basalt}
+  Rock058:         {size: 3.0, kind: blue-gray rock}
+  Snow010A:        {size: 2.0, kind: snow}
+  PavingStones046: {size: 2.0, kind: setts}

@@ -1,0 +1,34 @@
+{
+ "id": "worn_rock_natural_01",
+ "name": "Worn Rock Natural 01",
+ "size_m": [
+  2.0,
+  2.0
+ ],
+ "tags": [
+  "weathered",
+  "yellow",
+  "rock face",
+  "rock",
+  "flat",
+  "brown",
+  "boulder",
+  "cliff",
+  "chipped",
+  "nature",
+  "costal"
+ ],
+ "authors": [
+  "Rob Tuytel",
+  "Dimitrios Savva"
+ ],
+ "license": "CC0",
+ "res": "2k",
+ "maps": {
+  "Diffuse": "library/textures/surface/worn_rock_natural_01/worn_rock_natural_01_Diffuse_2k.jpg",
+  "nor_gl": "library/textures/surface/worn_rock_natural_01/worn_rock_natural_01_nor_gl_2k.jpg",
+  "Rough": "library/textures/surface/worn_rock_natural_01/worn_rock_natural_01_Rough_2k.jpg",
+  "Displacement": "library/textures/surface/worn_rock_natural_01/worn_rock_natural_01_Displacement_2k.jpg"
+ },
+ "substance": "stone"
+}

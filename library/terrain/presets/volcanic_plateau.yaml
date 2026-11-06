@@ -1,0 +1,20 @@
+name: volcanic_plateau
+title: Volcanic plateau above lava
+biome: volcanic
+cases: [ritual on the plateau, last battle, landing, flight from an eruption]
+knobs: {h: [25, 45], r: [70, 100], cones: [4, 8]}
+relief:
+  size: 380
+  ground: ash
+  fluid: lava
+  features:
+    - {kind: plateau, id: mesa, at: [0, 20], r: "{r}", h: "{h}", cliff: true, steps: 2, jag: 0.25}
+    - {kind: river, id: lava, path: [[-200, -70], [-60, -105], [60, -85], [200, -120]], w: 16, depth: 1.0}
+  generate:
+    - {gen: hill, id: cone, n: "{cones}", area: {ring: [135, 185]}, params: {r: [14, 30], h: [5, 11], shape: cinder, jag: 0.15}, gap: 0.6}   # cinder cones with a crater (terrain.hill_law)
+    - {gen: spire, id: obsidian, n: [3, 6], area: {ring: [15, 70], at: [0, 20]}, params: {h: [8, 18], r: [2, 3.5], cap: false}, gap: 1.0}
+  far: {h: 220, kind: ridged}
+views:                             # the preset's cameras — for its scenarios (the points are the site's anchors)
+  - {name: wide, from: mesa.foot_s, h: 50, look: mesa.top, look_h: 5, lens: 26, back: 80}
+  - {name: onto_plateau, from: mesa.top, h: 1.7, look: mesa.edge_s, look_h: 0, lens: 26, back: 30}
+  - {name: over_lava, from: lava@0.5, h: 3, look: mesa.top, look_h: 10, lens: 24}

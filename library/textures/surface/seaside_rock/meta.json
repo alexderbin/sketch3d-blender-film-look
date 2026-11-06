@@ -1,0 +1,32 @@
+{
+ "id": "seaside_rock",
+ "name": "Seaside Rock",
+ "size_m": [
+  2.0,
+  2.0
+ ],
+ "tags": [
+  "rough",
+  "weathered",
+  "seaside",
+  "rock face",
+  "rock",
+  "coastal",
+  "cliff",
+  "shore",
+  "solid rock",
+  "coastal landscape"
+ ],
+ "authors": [
+  "Dimitrios Savva"
+ ],
+ "license": "CC0",
+ "res": "2k",
+ "maps": {
+  "Diffuse": "library/textures/surface/seaside_rock/seaside_rock_Diffuse_2k.jpg",
+  "nor_gl": "library/textures/surface/seaside_rock/seaside_rock_nor_gl_2k.jpg",
+  "Rough": "library/textures/surface/seaside_rock/seaside_rock_Rough_2k.jpg",
+  "Displacement": "library/textures/surface/seaside_rock/seaside_rock_Displacement_2k.jpg"
+ },
+ "substance": "slate"
+}

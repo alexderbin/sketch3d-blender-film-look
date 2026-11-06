@@ -1,0 +1,23 @@
+name: marsh_terps
+title: Marsh with terps — village mounds on a lowland behind a dike
+biome: temperate
+cases: [village on a terp, dike breach, landing from the sea onto the marsh, view from the dike]
+knobs: {face: [0, 359], dike_at: [140, 200], terp_h: [4, 8], terp_top: [25, 45], terps: [1, 3]}
+relief:
+  size: 560
+  res: 0.7
+  ground: grass
+  forest: false                 # marsh and salt flat — no forest or bushes, no stones (marine clay; North Sea: grasses, glassworts)
+  stones: false
+  base: {amp: 0.25}
+  detail: {amp: 0.12}
+  erosion: {amount: 0.0}
+  use:
+    - {type: marsh, id: marsh, at: [0, -60], face: "{face}", dike_at: "{dike_at}", terp_h: "{terp_h}", terp_top: "{terp_top}"}
+  generate:
+    - {gen: mound, id: terp, n: "{terps}", area: {ring: [150, 230], at: [0, -60]}, params: {type: terp, h: [2.0, 3.5], top: [14, 24], r: [40, 60]}, gap: 1.2}
+  far: {h: 20, open: marsh.open_sea}              # the sea beyond the dike reaches the horizon
+views:
+  - {name: wide, from: marsh.dike, h: 40, look: marsh.terp, look_h: 0, lens: 26, back: 40}
+  - {name: from_dike, from: marsh.dike, h: 1.8, look: marsh.terp, look_h: 2, lens: 28, walk: true}
+  - {name: from_terp_to_sea, from: marsh.terp, h: 1.8, look: marsh.open_sea, look_h: 6, lens: 24, walk: true}

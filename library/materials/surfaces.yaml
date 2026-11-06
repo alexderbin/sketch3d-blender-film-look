@@ -1,0 +1,27 @@
+# Substance surfaces for buildings and masonry — a material texture, not a building pattern (blocks, planks and tiles are
+# geometry and masonry logic). Poly Haven scans, CC0, 2K JPG (~12 MB per surface); the square size comes from the Poly
+# Haven description (mm). Download: .venv/bin/python -m core.surface.surface_tex fetch
+# → library/textures/surface/<id>/; in the scene — core/surface/bl_surface.py (each block gets its own piece: a shift and
+# rotation by the stone number).
+res: 2k
+maps: [Diffuse, nor_gl, Rough, Displacement]
+surfaces:
+  rock_surface:          {substance: stone}      # gray-brown weathered stone, 2 m
+  rock_01:               {substance: stone}      # smooth gray stone, 1.5 m
+  rock_boulder_dry:      {substance: stone}      # a flat dry boulder with chips, 1.8 m
+  worn_rock_natural_01:  {substance: stone}      # a flat yellow-brown stone, 2 m — and a limestone roof slab (Cotswold)
+  grey_plaster_03:       {substance: mortar}     # rough gray plaster, 1 m
+  concrete:              {substance: concrete}   # concrete, 4 m — megablocks
+  clay_plaster:          {substance: brick}      # clay plaster, 2 m — the fired clay of brick and old tiles
+  rock_pitted_mossy:     {substance: tuff}       # porous eroded stone, 1 m — the tuff of the Roman grid
+  # coverings (roofing): the substance of the piece, not a roof pattern (tiles and planks are the layout geometry)
+  clay_floor_001:        {substance: clay}       # smooth clay, 2 m — roof tile
+  seaside_rock:          {substance: slate}      # dark fine-grained stone, 2 m — slate
+  rough_wood:            {substance: wood, grain: v}   # gray weathered wood in one piece, 0.5 m — shingles, shakes, boards; the grain runs along the image's v
+  riet_01:               {substance: straw, grain: v}  # reed, 2.5 m — straw thatch
+  green_metal_rust:      {substance: painted_iron}     # painted iron with rust, 1 m
+  rusty_metal_sheet:     {substance: metal, grain: v}  # a metal sheet with streaks, 2 m — copper, lead, gold (the pattern without color)
+  # paving and wood
+  gravelly_sand:         {substance: sand}       # sand with gravel, 2.5 m — bedding and pavement joints
+  dirt:                  {substance: earth}      # soil with pebbles, 2 m — mud between the half-logs
+  white_plaster_02:      {substance: plaster}    # white lime plaster, 1 m — half-timber infill

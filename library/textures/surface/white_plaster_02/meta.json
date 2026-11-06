@@ -1,0 +1,25 @@
+{
+ "id": "white_plaster_02",
+ "name": "White Plaster 02",
+ "size_m": [
+  1.0,
+  1.0
+ ],
+ "tags": [
+  "smooth",
+  "flat",
+  "even"
+ ],
+ "authors": [
+  "Rob Tuytel"
+ ],
+ "license": "CC0",
+ "res": "2k",
+ "maps": {
+  "Diffuse": "library/textures/surface/white_plaster_02/white_plaster_02_Diffuse_2k.jpg",
+  "nor_gl": "library/textures/surface/white_plaster_02/white_plaster_02_nor_gl_2k.jpg",
+  "Rough": "library/textures/surface/white_plaster_02/white_plaster_02_Rough_2k.jpg",
+  "Displacement": "library/textures/surface/white_plaster_02/white_plaster_02_Displacement_2k.jpg"
+ },
+ "substance": "plaster"
+}

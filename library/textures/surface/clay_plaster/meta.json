@@ -1,0 +1,33 @@
+{
+ "id": "clay_plaster",
+ "name": "Clay Plaster",
+ "size_m": [
+  2.0,
+  2.0
+ ],
+ "tags": [
+  "rough",
+  "wall",
+  "plaster",
+  "plastered",
+  "cracked",
+  "exterior",
+  "cracks",
+  "scratched",
+  "uneven",
+  "clay",
+  "coarse"
+ ],
+ "authors": [
+  "Amal Kumar"
+ ],
+ "license": "CC0",
+ "res": "2k",
+ "maps": {
+  "Diffuse": "library/textures/surface/clay_plaster/clay_plaster_Diffuse_2k.jpg",
+  "nor_gl": "library/textures/surface/clay_plaster/clay_plaster_nor_gl_2k.jpg",
+  "Rough": "library/textures/surface/clay_plaster/clay_plaster_Rough_2k.jpg",
+  "Displacement": "library/textures/surface/clay_plaster/clay_plaster_Displacement_2k.jpg"
+ },
+ "substance": "brick"
+}

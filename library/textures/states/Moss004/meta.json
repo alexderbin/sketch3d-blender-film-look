@@ -1,0 +1,14 @@
+{
+ "id": "Moss004",
+ "source": "ambientCG",
+ "license": "CC0",
+ "kind": "moss",
+ "what": "moss-cushion",
+ "maps": {
+  "ao": "library/textures/states/Moss004/Moss004_1K-JPG_AmbientOcclusion.jpg",
+  "color": "library/textures/states/Moss004/Moss004_1K-JPG_Color.jpg",
+  "height": "library/textures/states/Moss004/Moss004_1K-JPG_Displacement.jpg",
+  "normal": "library/textures/states/Moss004/Moss004_1K-JPG_NormalGL.jpg",
+  "rough": "library/textures/states/Moss004/Moss004_1K-JPG_Roughness.jpg"
+ }
+}

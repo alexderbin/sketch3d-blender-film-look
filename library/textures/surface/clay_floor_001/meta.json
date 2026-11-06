@@ -1,0 +1,32 @@
+{
+ "id": "clay_floor_001",
+ "name": "Clay Floor 001",
+ "size_m": [
+  2.0,
+  2.0
+ ],
+ "tags": [
+  "flat",
+  "cracked",
+  "floor",
+  "plain",
+  "brown",
+  "discolored",
+  "clay",
+  "yellow",
+  "painted"
+ ],
+ "authors": [
+  "Dimitrios Savva",
+  "Rico Cilliers"
+ ],
+ "license": "CC0",
+ "res": "2k",
+ "maps": {
+  "Diffuse": "library/textures/surface/clay_floor_001/clay_floor_001_Diffuse_2k.jpg",
+  "nor_gl": "library/textures/surface/clay_floor_001/clay_floor_001_nor_gl_2k.jpg",
+  "Rough": "library/textures/surface/clay_floor_001/clay_floor_001_Rough_2k.jpg",
+  "Displacement": "library/textures/surface/clay_floor_001/clay_floor_001_Displacement_2k.jpg"
+ },
+ "substance": "clay"
+}

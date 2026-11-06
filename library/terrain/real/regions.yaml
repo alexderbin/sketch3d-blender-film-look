@@ -1,0 +1,156 @@
+# A library of real bases: areas by landform type and the type's requirements for a 400 m window (per the analysis in
+# components/site/terrain_analysis.py). Heights — USGS 3DEP (lidar, 1 m step; public domain). Assembled by
+# components/site/terrain_library.py; windows — <type>/<name>.npz.
+#
+# Requirements (all optional):
+#   relief: [from, to]      — the window's height range, m (p98 − p2)
+#   steep: [from, to]       — the share of cells steeper than 40°
+#   slope50: [from, to]     — the median slope, °
+#   flat_max: fraction      — the share of the "flat" form (geomorphons, L = 20 m) at most
+#   stream: {r, area}       — the main stream passes closer than r m to the center, with a catchment there ≥ area m²
+#   saddle: {r, drop}       — a saddle closer than r m to the center, drop ≥ drop m
+#   summit: {r, rel, top}   — a summit closer than r m, the drop to its surroundings ≥ rel m, a flat top ≥ top m²
+#   bowl: {r, rel}          — a bowl closer than r m, depth ≥ rel m
+#   sea: [from, to]         — the share of cells below 0.5 m above the sea (a shore)
+#   rough_min: m            — fine texture (a remainder finer than ~5 m) — filters out smoothed sources (default 0.05)
+# Selection score — score: [field, …] (higher is better): relief, steep, stream_area, saddle_drop, summit_rel, bowl_rel, rough.
+
+types:
+  canyon:
+    title: a canyon in a plateau
+    presets: [desert_canyon]
+    need: {relief: [40, 260], steep: [0.06, 0.7], stream: {r: 60, area: 20000}}
+    score: [relief, steep]
+    regions:
+      - [canyonlands_needles, 38.15, -109.80]
+      - [capitol_reef, 38.29, -111.26]
+      - [escalante, 37.70, -111.25]
+      - [canyon_de_chelly, 36.13, -109.47]
+      - [zion_east, 37.23, -112.88]
+  badlands:
+    title: badlands
+    presets: [badlands]
+    need: {relief: [12, 80], slope50: [8, 45], flat_max: 0.15}
+    score: [rough, relief]
+    regions:
+      - [badlands_np, 43.75, -102.05]
+      - [teddy_roosevelt, 46.95, -103.45]
+      - [bisti, 36.27, -108.25]
+      - [painted_desert, 35.07, -109.78]
+      - [toadstool, 42.86, -103.58]
+      - [makoshika, 47.06, -104.7]
+      - [little_missouri, 47.6, -103.4]
+      - [factory_butte, 38.42, -110.85]
+      - [caineville, 38.36, -111.02]
+      - [ah_shi_sle_pah, 36.2, -107.98]
+  alpine:
+    title: mountains, a pass
+    presets: [alpine_pass]
+    need: {relief: [80, 400], saddle: {r: 80, drop: 6}}
+    score: [saddle_drop, relief]
+    regions:
+      - [independence_pass, 39.11, -106.56]
+      - [loveland_pass, 39.66, -105.88]
+      - [cottonwood_pass, 38.83, -106.41]
+      - [tioga_pass, 37.91, -119.26]
+      - [beartooth, 44.97, -109.47]
+      - [berthoud_pass, 39.798, -105.777]
+      - [monarch_pass, 38.497, -106.325]
+      - [hoosier_pass, 39.361, -106.063]
+      - [sonora_pass, 38.329, -119.636]
+      - [ebbetts_pass, 38.544, -119.814]
+      - [washington_pass, 48.526, -120.655]
+      - [chinook_pass, 46.872, -121.515]
+      - [teton_pass, 43.497, -110.955]
+      - [galena_summit, 43.873, -114.713]
+      - [togwotee_pass, 43.757, -110.069]
+  cirque:
+    title: cirque (a bowl in the mountains), a mountain lake
+    presets: [arena_bowl, mountain_lake]
+    need: {relief: [40, 400], bowl: {r: 90, rel: 8}}
+    score: [bowl_rel, relief]
+    regions:
+      - [mount_evans, 39.58, -105.64]
+      - [sierra_sabrina, 37.20, -118.62]
+      - [wind_river, 42.80, -109.20]
+      - [sawtooth, 44.10, -115.00]
+      - [north_cascades, 48.50, -121.10]
+      - [indian_peaks, 40.08, -105.65]
+      - [maroon_bells, 39.08, -106.99]
+      - [glacier_np, 48.7, -113.8]
+      - [uinta, 40.75, -110.8]
+      - [sierra_kings, 36.6, -118.4]
+  river_hills:
+    title: a stream among hills
+    presets: [river_crossing, jungle_valley]
+    need: {relief: [20, 120], stream: {r: 50, area: 300000}}
+    score: [stream_area, relief]
+    regions:
+      - [buffalo_river, 36.06, -93.13]
+      - [current_river, 37.15, -91.35]
+      - [driftless, 43.40, -91.20]
+      - [red_river_gorge, 37.82, -83.68]
+      - [smokies, 35.60, -83.50]
+      - [ozark_north, 36.55, -93.4]
+      - [ozark_east, 36.0, -92.5]
+      - [appalachian_va, 37.3, -80.9]
+      - [kickapoo, 43.6, -90.6]
+      - [oregon_coast_range, 44.3, -123.6]
+      - [pennsylvania_creek, 41.3, -77.6]
+  hilltop:
+    title: a hill with a flat top
+    presets: [fortress_hill]
+    need: {relief: [18, 120], summit: {r: 70, rel: 15, top: 400}, steep: [0, 0.15]}
+    score: [summit_rel, relief]
+    regions:
+      - [steptoe_butte, 47.03, -117.30]
+      - [kentucky_knobs, 37.60, -85.90]
+      - [flint_hills, 38.90, -96.50]
+      - [petit_jean, 35.12, -92.93]
+      - [palouse, 46.90, -117.10]
+      - [pilot_knob, 37.62, -90.64]
+      - [mount_nebo, 35.22, -93.25]
+      - [loess_hills, 41.9, -95.9]
+      - [sentinel_butte, 46.88, -103.84]
+      - [black_butte, 44.4, -121.64]
+      - [square_butte, 47.48, -110.21]
+      - [monadnock, 42.86, -72.11]
+  coast:
+    title: a shore with cliffs
+    presets: [coastal_cliffs]
+    need: {relief: [20, 300], sea: [0.08, 0.5], steep: [0.03, 0.7]}
+    score: [steep, relief]
+    regions:
+      - [big_sur, 36.25, -121.80]
+      - [cape_perpetua, 44.28, -124.11]
+      - [point_reyes, 38.00, -123.00]
+      - [lost_coast, 40.02, -124.07]
+      - [olympic_coast, 47.92, -124.64]
+      - [acadia, 44.33, -68.19]
+      - [big_sur_south, 35.95, -121.48]
+      - [bodega, 38.3, -123.06]
+      - [boardman, 42.18, -124.36]
+      - [cape_blanco, 42.84, -124.56]
+      - [gaviota, 34.47, -120.2]
+      - [schoodic, 44.34, -68.06]
+      - [kalaloch, 47.6, -124.37]
+  volcanic:
+    title: lava and cinder cones
+    presets: [volcanic_plateau, crater_battlefield]
+    need: {relief: [10, 250]}
+    score: [rough, relief]
+    regions:
+      - [craters_of_the_moon, 43.42, -113.52]
+      - [lava_beds, 41.71, -121.51]
+      - [sunset_crater, 35.36, -111.50]
+      - [newberry, 43.69, -121.25]
+      - [amboy, 34.54, -115.79]
+  glacier:
+    title: a glacier and moraines
+    presets: [glacier_field]
+    need: {relief: [30, 400]}
+    score: [relief, rough]
+    regions:
+      - [rainier, 46.85, -121.75]
+      - [glacier_peak, 48.11, -121.11]
+      - [north_cascades_ice, 48.65, -121.25]

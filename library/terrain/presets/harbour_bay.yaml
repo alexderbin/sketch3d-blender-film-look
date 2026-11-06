@@ -1,0 +1,19 @@
+name: harbour_bay
+title: Colony bay — a gulf with a narrow mouth, capes, a beach
+biome: temperate
+cases: [landing in the bay, colony harbor, fight on the beach, view from the cape]
+knobs: {face: [0, 359], r: [90, 140], mouth: [50, 90], cape_h: [14, 30], hills: [3, 6]}
+relief:
+  size: 600
+  res: 0.75
+  ground: grass
+  erosion: {amount: 0.3}
+  use:
+    - {type: bay, id: bay, at: [0, -40], face: "{face}", r: "{r}", mouth: "{mouth}", cape_h: "{cape_h}"}
+  generate:
+    - {gen: hill, id: hill, n: "{hills}", area: {ring: [210, 280]}, params: {r: [45, 90], h: [10, 30], shape: dome, jag: 0.15}, gap: 0.8}
+  far: {h: 110, open: bay.open_sea}               # the sea beyond the mouth reaches the horizon: the mountain belt parts
+views:
+  - {name: wide, from: bay.plain, h: 70, look: bay.harbour, look_h: 0, lens: 24, back: 80}
+  - {name: beach, from: bay.quay, h: 1.7, look: bay.mouth, look_h: 9, lens: 28, back: 10, walk: true}
+  - {name: from_cape, from: bay.cape_l, h: 1.8, look: bay.quay, look_h: 0, lens: 26, walk: true}

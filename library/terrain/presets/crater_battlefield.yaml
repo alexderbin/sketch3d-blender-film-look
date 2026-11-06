@@ -1,0 +1,19 @@
+name: crater_battlefield
+title: Battlefield — craters and trenches
+biome: wasteland
+cases: [attack across no man's land, positional fighting, night reconnaissance, evacuation of the wounded]
+knobs: {craters: [25, 45], trenches: [2, 4], big: [12, 20]}
+relief:
+  size: 340
+  ground: mud
+  erosion: {amount: 0.5}
+  use:
+    - {type: crater_field, id: nml, at: [0, 0], n: "{craters}", r: 115, big: "{big}"}
+  generate:
+    - {gen: trench, id: line, n: "{trenches}", area: {box: [-120, -150, 120, -70]}, params: {length: [90, 170], course: [-12, 12], depth: 1.9, w: 1.6}, gap: 0.4}
+    - {gen: rampart, id: berm, n: [2, 4], area: {box: [-130, 70, 130, 140]}, params: {length: [40, 90], course: [-20, 20], h: 2.2, w: 2.0}, gap: 0.6}
+  far: {h: 60, kind: hills}
+views:                             # the preset's cameras — for its scenarios (the points are the site's anchors)
+  - {name: wide, from: [-120, -175], h: 35, look: nml.big, look_h: 0, lens: 26}
+  - {name: no_mans_land, from: [0, -125], h: 1.7, look: nml.big, look_h: 1, lens: 30}
+  - {name: from_crater, from: nml.big, h: 1.4, look: nml.rim, look_h: 1.5, lens: 26}

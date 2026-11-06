@@ -1,0 +1,19 @@
+name: tell_plain
+title: Tell on a plain — the mound of an ancient town, the lower town, "hollow ways"
+biome: desert
+cases: [town on a tell, siege of the tell, caravan to the town, excavation, view from the tell over the plain]
+knobs: {face: [0, 359], h: [12, 28], rx: [60, 95], ry: [45, 70], lower_r: [140, 200]}
+relief:
+  size: 600
+  res: 0.75
+  ground: sand
+  erosion: {amount: 0.2}
+  use:
+    - {type: tell, id: tell, at: [0, -40], face: "{face}", h: "{h}", rx: "{rx}", ry: "{ry}", lower_r: "{lower_r}"}
+  generate:
+    - {gen: mound, id: small, n: [1, 3], area: {ring: [230, 290], at: [0, -40]}, params: {type: tell, h: [3, 7], top: [15, 30], r: [30, 50]}, gap: 1.0}
+  far: {h: 60}
+views:
+  - {name: wide, from: tell.lower, h: 60, look: tell.top, look_h: 0, lens: 26, back: 120}
+  - {name: ascent_to_tell, from: tell.ramp, h: 1.7, look: tell.top, look_h: 14, lens: 28, back: 40, walk: true}
+  - {name: from_tell, from: tell.top, h: 1.8, look: tell.stream, look_h: 0, lens: 24, walk: true}

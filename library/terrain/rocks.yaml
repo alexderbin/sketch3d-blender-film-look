@@ -1,0 +1,29 @@
+# Site rocks (the Site step rocks): Poly Haven scans (CC0) — as instances by geology rules (library/terrain/dress.yaml →
+# rock layers). Download (~150 MB, 2K):
+# .venv/bin/python -m components.site.terrain_clutter fetch --cfg library/terrain/rocks.yaml --out library/rocks/polyhaven
+# Role → rock kind in the rules: boulder (boulder), cliff face (face), rock outcrop (outcrop), mossy stone (mossy).
+res: 2k
+assets:
+  boulder:   {id: boulder_01}
+  boulder2:  {id: namaqualand_boulder_02}
+  rock:      {id: rock_07}
+  rock2:     {id: rock_09}
+  face:      {id: rock_face_01}
+  face2:     {id: rock_face_02}
+  cliff:     {id: namaqualand_cliff_01}
+  outcrop:   {id: mountainside}
+  mossy:     {id: rock_moss_set_01}
+layers:              # dressing layer (dress.yaml: the near patch and the belt) → scan roles; lod — the Poly Haven level (0 — full … 3), far — thin out
+# to this many faces (belt); sink — sink by a fraction of the height, flatten — flatten along the
+# slope normal, tilt — toward the normal, face_out — turn the scan's face (the mean normal of its
+# faces) along the fall line of the slope: a rock outcrop is part of the slope, not a boulder on top
+# of it; cover — the share of ground tone on the upper faces (the stone grows into the slope: moss,
+# soil, grass); bright — the rock tone × (weathered rock is lighter than grass: albedo 0.25–0.4
+# versus 0.1–0.2; a scan carries its own shadow — without this the patches are dark)
+  crags:           {roles: [face, face2, cliff], lod: 2, sink: 0.5, flatten: 0.7, tilt: 0.9, face_out: true, cover: 0.3, bright: 1.2}
+  boulders:        {roles: [boulder, boulder2, mossy], lod: 2, cover: 0.55}
+  talus:           {roles: [rock, rock2], lod: 3, cover: 0.15}
+  stones:          {roles: [rock2, rock], lod: 3, cover: 0.2}
+  cliffs:          {roles: [cliff, outcrop, boulder2, face, face2], lod: 3, far: 500, sink: 0.65, flatten: 0.55, tilt: 0.85, face_out: true, cover: 0.45, bright: 1.3}
+  outcrops:        {roles: [outcrop, cliff, boulder2], lod: 3, far: 500, sink: 0.6, flatten: 0.6, tilt: 0.7, face_out: true, cover: 0.5, bright: 1.3}
+  valley_boulders: {roles: [boulder, boulder2, rock, mossy], lod: 3, far: 400, cover: 0.6}

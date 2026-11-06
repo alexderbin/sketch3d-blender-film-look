@@ -1,0 +1,19 @@
+name: ring_fort
+title: Ring fort on flat ground (or a henge — a ditch inside the rampart)
+biome: temperate
+cases: [siege of the ring, fight at the gate, view from the rampart, rite in the circle]
+knobs: {face: [0, 359], r: [40, 75], works: [ring, ring, henge], lines: [1, 2], hills: [2, 5]}
+relief:
+  size: 420
+  res: 0.6
+  ground: grass
+  erosion: {amount: 0.3}
+  use:
+    - {type: hillfort, id: fort, kind: ring, at: [0, 0], face: "{face}", r: "{r}", works: "{works}", lines: "{lines}"}
+  generate:
+    - {gen: hill, id: hill, n: "{hills}", area: {ring: [140, 200]}, params: {r: [40, 80], h: [6, 16], shape: dome, jag: 0.15}, gap: 0.8}
+  far: {h: 80}
+views:
+  - {name: wide, from: fort.gate_out, h: 45, look: fort.yard, look_h: 0, lens: 26, back: 90}
+  - {name: gate, from: fort.gate_out, h: 1.7, look: fort.gate, look_h: 2, lens: 28, back: 20, walk: true}
+  - {name: from_rampart, from: fort.crest, h: 1.8, look: fort.yard, look_h: 0, lens: 24, walk: true}

@@ -1,0 +1,663 @@
+{
+ "_about_file": "Markup of the mcp-for-blender components for our pipeline. Their code is not modified: their blender_scripts.py and addon.py are placed unmodified in core/ext/mcp4b/, and the adapter mcp4b.py calls only the components with the status on and patch. Statuses: on — called as is; patch — called, with our patches around the call in the adapter; ours — their code is absent or unsuitable, and we have our own piece built on their idea; later — needed later, switched off for now; off — not taken. The check numbers come from the reference run notes; the steps e1–e18 are experiments, and eN in bench are the steps of the reference run bench.sh. Skills — numbers 1–21 of the capability list, classes — A1–D5 of the task classes; an empty list for infrastructure (it serves everyone).",
+ "_source": {
+  "repo": "https://github.com/ahujasid/mcp-for-blender",
+  "commit": "5a3618f",
+  "path": "projects/mcp-for-blender/src/mcp-for-blender",
+  "within_ext": "core/ext/mcp4b/ (blender_scripts.py, addon.py unmodified; the adapter mcp4b.py and this markup are next to them; the path to their code is the MCP4B_SRC variable)"
+ },
+ "components": [
+  {
+   "id": "run_script",
+   "status": "on",
+   "what": "infrastructure: an observer script with arguments as a dict and a single labeled reply line",
+   "where": "src/blender_mcp/blender_scripts.py:15-35 (build, parse_result)",
+   "skills": [],
+   "classes": [],
+   "work_h": 0.5,
+   "check": "all experiments e1–e18; bench e15: 8 calls out of 8",
+   "dest": "Core/ext/mcp4b/mcp4b.py",
+   "call": "mcp4b.run(script, **arguments)",
+   "depends_on": []
+  },
+  {
+   "id": "look",
+   "status": "patch",
+   "what": "a windowless picture of the scene: through a camera, side views, an X-ray with bones, a mesh over the shape, a strip of animation frames; with mask=True — an exact mask pass by object color",
+   "where": "src/blender_mcp/blender_scripts.py:212-524 (LOOK); addon.py:2115-2224 (GPUOffScreen.draw_view3d)",
+   "skills": [
+    6,
+    10,
+    16,
+    18
+   ],
+   "classes": [
+    "B3",
+    "V6",
+    "V7",
+    "G1",
+    "G2"
+   ],
+   "work_h": 3,
+   "check": "bench e2: 0 errors, an 8-frame strip 0.09–0.12 s, a view through a camera 0.02–0.03 s; bench e2b: the view = a Workbench render on 100.000 % of pixels",
+   "dest": "tools/bl_view.py",
+   "call": "mcp4b.look(path, mode=camera|angles|frames, target=[…], mask=False, **their arguments)",
+   "patches": "gpu.init() once; the selection is cleared for the duration of the shot; the frame — visible meshes only (an armature's bound_box can be NaN, the glTF bone service sphere is hidden); mask=True — preferences.system.viewport_aa = OFF; open a file without a 3D view with load_ui=False",
+   "depends_on": [
+    "run_script"
+   ],
+   "intersects": [
+    "armature:cast_sheet — hero sheets: orthographic views and a common scale are better in armature; look — quick checks by the caller, X-ray, strips",
+    "frugal-blender-mcp:capture — a render shot of 64–1024 px; look is faster and handles views, X-ray and strips"
+   ]
+  },
+  {
+   "id": "summary",
+   "status": "patch",
+   "what": "a scene summary with one line per object: sizes, topology, weights; a line limit and \"N more\"",
+   "where": "src/blender_mcp/blender_scripts.py:47-205 (SCENE_SUMMARY)",
+   "skills": [
+    10,
+    5,
+    3,
+    4
+   ],
+   "classes": [
+    "A1",
+    "A3",
+    "A4",
+    "A5",
+    "B1",
+    "B2",
+    "B3"
+   ],
+   "work_h": 2,
+   "check": "~300 tokens per scene; bench e6: weights and topology of 92 models, 0.04 s median",
+   "dest": "tools/bl_passport.py",
+   "call": "mcp4b.summary(fields=[size, topology, weights, …], query=…, root=…, limit=…)",
+   "patches": "view_layer.update() before reading the matrices; the ground field is disabled (it measures from z = 0) — ground_feet checks the support",
+   "depends_on": [
+    "run_script"
+   ],
+   "intersects": [
+    "frugal-blender-mcp:inspect — 20 objects take ~672 tokens versus ~300 here; this one is better"
+   ]
+  },
+  {
+   "id": "bounds",
+   "status": "on",
+   "what": "the dimensions of an object with its children after modifiers",
+   "where": "src/blender_mcp/blender_scripts.py:529-551 (BOUNDS)",
+   "skills": [
+    3,
+    10
+   ],
+   "classes": [
+    "A5",
+    "B5"
+   ],
+   "work_h": 0.5,
+   "check": "bench e15: figure_XB 0.85×1.30×2.16 m",
+   "dest": "tools/bl_passport.py",
+   "call": "mcp4b.bounds([names])",
+   "depends_on": [
+    "run_script"
+   ],
+   "intersects": [
+    "armature:library_height_check — a model's height by the visible silhouette against its passport: better in armature for the library; bounds — for scene objects"
+   ]
+  },
+  {
+   "id": "pick",
+   "status": "on",
+   "what": "a frame pixel → an object and a point in the scene (a ray through the camera matrices)",
+   "where": "addon.py:2226-2284 (pick_viewport_object)",
+   "skills": [
+    10,
+    13,
+    14
+   ],
+   "classes": [
+    "Within1",
+    "Within2",
+    "G1"
+   ],
+   "work_h": 1,
+   "check": "bench e3: the object = the id pass in 99.97 %, depth — median 0.011–0.018 %; foot → ground 0.35–0.40 m",
+   "dest": "tools/maps.py",
+   "call": "mcp4b.pick(camera, W, H, px, py)",
+   "depends_on": []
+  },
+  {
+   "id": "blend_version",
+   "status": "on",
+   "what": "the version of the Blender that saved a .blend, from the header without opening it (gzip and zstd)",
+   "where": "addon.py:523-575",
+   "skills": [
+    3,
+    18
+   ],
+   "classes": [
+    "G2",
+    "G3"
+   ],
+   "work_h": 0.5,
+   "check": "bench e1: 5.2.3 files, compressed and not → (5, 2)",
+   "dest": "Core/assets/models/bl_model.py",
+   "call": "mcp4b.blend_version(path)",
+   "depends_on": []
+  },
+  {
+   "id": "api",
+   "status": "on",
+   "what": "a reference on the types, properties, functions, operators and node sockets of this Blender version (the RNA of a live Blender)",
+   "where": "addon.py:2326-2617 (bpy_api_lookup, describe_node_type, _describe_property)",
+   "skills": [
+    1,
+    2,
+    8
+   ],
+   "classes": [],
+   "work_h": 1,
+   "check": "0.01 s; a digest of 5 % of the volume (~1,400 tokens for 8 types)",
+   "dest": "tools/bl_api.py",
+   "call": "mcp4b.api(query), mcp4b.node(type, **mode)",
+   "depends_on": [],
+   "intersects": [
+    "frugal-blender-mcp:rna — also from a live Blender; equivalent"
+   ]
+  },
+  {
+   "id": "polyhaven",
+   "status": "on",
+   "what": "Poly Haven: search, a model (the LOD0 collection, a fallback glTF for a newer .blend version), HDRI as the world, a texture with a material, provenance tags",
+   "where": "addon.py:285-885, 2685-3441",
+   "skills": [
+    2,
+    3,
+    7
+   ],
+   "classes": [
+    "A1",
+    "A4",
+    "A5",
+    "D3"
+   ],
+   "work_h": 2,
+   "check": "rocks 2.2 s, sky 0.9 s, texture ~1 s; experiment 13: 521 models, 869 textures, 997 skies",
+   "dest": "Core/assets/models/polyhaven.py",
+   "call": "mcp4b.polyhaven(id, type, resolution)",
+   "depends_on": []
+  },
+  {
+   "id": "guides",
+   "status": "on",
+   "what": "infrastructure: Blender hints (bpy, animation, materials, scene, rig, levels, retopology)",
+   "where": "src/blender_mcp/guides/*.md",
+   "skills": [],
+   "classes": [],
+   "work_h": 0,
+   "check": "experiment 1: the statements about 5.x are confirmed",
+   "dest": "Rules/blender.md",
+   "call": "mcp4b.guide(topic)",
+   "depends_on": []
+  },
+  {
+   "id": "ground_feet",
+   "status": "ours",
+   "what": "who is floating and whose feet are in the ground — by the foot points with a ray from above, figures are skipped; crowds — one line per squad",
+   "where": "their idea — the ground field in blender_scripts.py:87-93",
+   "skills": [
+    10,
+    5,
+    2
+   ],
+   "classes": [
+    "A1",
+    "A3",
+    "A4",
+    "B2",
+    "B3"
+   ],
+   "work_h": 3,
+   "check": "bench e4b: 7 of 7 defects, 23 alarms at 12 cm (real feet in crater slopes, 2 checked by X-ray)",
+   "dest": "tools/bl_passport.py",
+   "prototype": "projects/analysis/runs/deep-mcp-for-blender/e4b_ground_feet.py",
+   "why": "their field measures from z = 0: 55 false alarms out of 62 (figures on a wall \"float 40 m\")",
+   "depends_on": [
+    "summary"
+   ]
+  },
+  {
+   "id": "receipt",
+   "status": "ours",
+   "what": "an edit receipt: what changed after a plan edit, only the diverging fields, ~100 tokens",
+   "where": "their idea — addon.py:1922-2057 get_world_state_snapshot, trajectory.py:282-330 compute_state_delta",
+   "skills": [
+    10
+   ],
+   "classes": [
+    "G1",
+    "G3"
+   ],
+   "work_h": 2,
+   "check": "bench e5: 394 characters versus 1,493; the focal length is visible; 0 phantoms",
+   "dest": "tools/bl_passport.py",
+   "prototype": "projects/analysis/runs/deep-mcp-for-blender/e5_receipt.py",
+   "why": "their snapshot in 5.x loses animation (action.fcurves), without update it gives 351 phantoms, and the diff does not see a focal length change",
+   "depends_on": []
+  },
+  {
+   "id": "camera_search",
+   "status": "ours",
+   "what": "a search over cameras around the hero on the look orbit, discarding those blocked by a wall (two masks per camera, or rays)",
+   "where": "their idea — LOOK.orbit in blender_scripts.py:337-352 and the view drawing",
+   "skills": [
+    6
+   ],
+   "classes": [
+    "A2",
+    "B1",
+    "B3",
+    "B4",
+    "G1"
+   ],
+   "work_h": 4,
+   "check": "bench e9: 72 cameras, 8 blocked, pixel and ray agreement 0.82, 5.4 ms per camera",
+   "dest": "tools/camera_intent.py",
+   "prototype": "projects/analysis/runs/deep-mcp-for-blender/e9_camsearch.py",
+   "why": "they have none: the orbit only shows, it does not check visibility",
+   "depends_on": [
+    "look",
+    "armature:framing_solve"
+   ],
+   "intersects": [
+    "armature:framing_solve — intent-based framing is in armature, discarding cameras inside walls is here; together in tools/camera_intent.py"
+   ]
+  },
+  {
+   "id": "format_9x16",
+   "status": "ours",
+   "what": "a 9:16 frame from a 16:9 camera: a window around the hero (sensor_fit VERTICAL, the same vertical angle, shift_x toward the hero); wide shots get their own camera",
+   "where": "their idea — a mask pass through the 3D view",
+   "skills": [
+    6,
+    20
+   ],
+   "classes": [
+    "B4",
+    "Within2",
+    "V6",
+    "G1"
+   ],
+   "work_h": 3,
+   "check": "bench e11: the hero stays whole with \"by hero\" 3/3, \"center\" 0/3, \"resize\" 2/3 with the area ×0.32",
+   "dest": "tools/camera_intent.py, tools/bl_scene.py (make_camera)",
+   "prototype": "projects/analysis/runs/deep-mcp-for-blender/e11_formats.py",
+   "why": "they have none",
+   "depends_on": [
+    "look"
+   ],
+   "intersects": [
+    "armature:framing_solve — the solver can place a separate 9:16 camera for wide shots; a hero window is cheaper with the same camera"
+   ]
+  },
+  {
+   "id": "warm_blender",
+   "status": "ours",
+   "what": "a windowless warm Blender: the scene loads once, commands are code with a one-line reply; the frame pipeline in one process, map building in the background",
+   "where": "their idea — addon.py:1427-1530 the queue and execute_code 2286-2311",
+   "skills": [
+    6,
+    8,
+    16,
+    20
+   ],
+   "classes": [
+    "B3",
+    "V6",
+    "V7",
+    "D3"
+   ],
+   "work_h": 6,
+   "check": "bench e7c: 1.14–1.85 s per frame versus 4.1–5.5 s, the maps equal the regular ones at 100 %; e16: 150 frames without memory growth",
+   "dest": "tools/bl_serve.py, tools/bl_pack.py",
+   "prototype": "e7b_server.py, e7c_pipe_blender.py, e7c_driver.py",
+   "why": "their timer-based socket does not start in blender -b (experiment 1)",
+   "depends_on": [
+    "frugal-blender-mcp:transport"
+   ],
+   "intersects": [
+    "frugal-blender-mcp:transport — their transport works windowless, can be called from any process, with a token and retries; build the host on it (better), the stdin server from here is the fallback; the frame loop and the background build (e7c) are from here"
+   ]
+  },
+  {
+   "id": "clip_catalog",
+   "status": "ours",
+   "what": "a clip as a single picture: a strip of frames on the skeleton, the frame fitted to the trajectory; drawn on request from a recipe, not stored",
+   "where": "their idea — the LOOK frames mode, blender_scripts.py:472-494",
+   "skills": [
+    4,
+    16
+   ],
+   "classes": [
+    "B3",
+    "V6",
+    "V7"
+   ],
+   "work_h": 2,
+   "check": "experiment 18: a DoW II trooper built from parts, 0.6 s; a 0.1–1.2 s clip with a strip; bench e12: 15 Bandai clips of 0.05 s each",
+   "dest": "tools/bl_view.py",
+   "prototype": "projects/analysis/runs/deep-mcp-for-blender/e12_clips.py, e18_game_clip.py",
+   "why": "their strip takes the frame box from the first frame — the fighter walks out of shot; the range and the box must be taken from the clip",
+   "depends_on": [
+    "look"
+   ],
+   "intersects": [
+    "bandai-mocap:keys — mocap pose sheets (core/assets/mocap/bl_sheet.py) on X Bot: for people the sheets are better; the strip is for game clips and a quick check of the video"
+   ]
+  },
+  {
+   "id": "rig_check",
+   "status": "ours",
+   "what": "an honest \"rig\" flag: bound vertices, vertices without weights, non-manifold edges in the model passport",
+   "where": "their idea — weights() and topology() in blender_scripts.py:123-152",
+   "skills": [
+    3,
+    4,
+    18
+   ],
+   "classes": [
+    "B2",
+    "B3",
+    "G2"
+   ],
+   "work_h": 1.5,
+   "check": "bench e6: guardsman — 0 bound vertices with a \"6-bone rig\"; orc — 0 of 13,248 without weights",
+   "dest": "Core/assets/models/bl_ingest.py",
+   "prototype": "projects/analysis/runs/deep-mcp-for-blender/e6_library.py",
+   "why": "theirs is a summary line for the chat; we need a field in ingest.json and an R flag on the sheets",
+   "depends_on": [
+    "summary"
+   ],
+   "intersects": [
+    "armature:library_height_check — height from the visible silhouette; complements, does not replace"
+   ]
+  },
+  {
+   "id": "token_meter",
+   "status": "ours",
+   "what": "infrastructure: the token cost of what the model reads (characters/4, image w×h/750 after downscaling to 1568 px)",
+   "where": "their idea — src/blender_mcp/context_log.py:60-125",
+   "skills": [],
+   "classes": [],
+   "work_h": 0.5,
+   "check": "bench tokens: frame.json 525, an 8-frame strip 827",
+   "dest": "tools/guard.py",
+   "prototype": "projects/analysis/runs/deep-mcp-for-blender/guards/guard.py (tokens)",
+   "why": "theirs is part of the MCP server",
+   "depends_on": []
+  },
+  {
+   "id": "resource_guard",
+   "status": "ours",
+   "what": "infrastructure: disk space, memory, one heavy run at a time, timeout, shot recipe, cleanup of raw files by age",
+   "where": "their idea — snapshot limits and output truncation (MAX_SNAPSHOT_OBJECTS, summary limit); the rest is our own",
+   "skills": [],
+   "classes": [],
+   "work_h": 1,
+   "check": "guards: a run without free space was stopped, a second heavy run was refused, a hung command was killed; cleanup — 176 MB",
+   "dest": "tools/guard.py",
+   "prototype": "projects/analysis/runs/deep-mcp-for-blender/guards/guard.py",
+   "why": "they have none",
+   "depends_on": [
+    "token_meter"
+   ]
+  },
+  {
+   "id": "version_facts",
+   "status": "ours",
+   "what": "infrastructure: facts about the Blender version that the code relies on (fcurves, use_nodes, input names, engine, timers, glTF, SystemExit) — re-run when the version changes",
+   "where": "their idea — tests/test_compat_matrix.py and guides/bpy.md",
+   "skills": [],
+   "classes": [],
+   "work_h": 1,
+   "check": "bench e1: the 10 facts for 5.2.3 hold",
+   "dest": "bench/blender/facts.py",
+   "prototype": "projects/analysis/runs/deep-mcp-for-blender/e1_pitfalls.py",
+   "why": "theirs are tests on a stubbed bpy and the hint text",
+   "depends_on": []
+  },
+  {
+   "id": "guides_on_demand",
+   "status": "ours",
+   "what": "infrastructure: knowledge for the model organized by topic, read on demand rather than in every conversation",
+   "where": "their idea — src/blender_mcp/guides.py",
+   "skills": [],
+   "classes": [],
+   "work_h": 0,
+   "check": "",
+   "dest": "Rules/",
+   "prototype": "Rules/",
+   "why": "theirs is an MCP server tool",
+   "depends_on": []
+  },
+  {
+   "id": "mcp_window",
+   "status": "later",
+   "what": "their MCP as a whole, as a separate tool for the window: you rotate the view, the model sees and edits",
+   "where": "the whole project; DISABLE_TELEMETRY=true",
+   "skills": [
+    6,
+    10
+   ],
+   "classes": [
+    "G1"
+   ],
+   "work_h": 0.5,
+   "why": "the window is untested; a constant overhead of 4k tokens; lightweight replacement — frugal-blender-mcp",
+   "when": "on explicit request, the lightweight window",
+   "depends_on": [],
+   "intersects": [
+    "frugal-blender-mcp — a window with a constant overhead of 338 tokens; frugal is better for edits, this one for browsing catalogs"
+   ]
+  },
+  {
+   "id": "edit_recorder",
+   "status": "later",
+   "what": "the human's edits in the window kept separate from the model's edits (operator stack, undo)",
+   "where": "addon.py:885-1150",
+   "skills": [
+    6
+   ],
+   "classes": [
+    "G1"
+   ],
+   "work_h": 4,
+   "why": "needed only with the window",
+   "when": "lightweight window: the camera from the window into the plan",
+   "depends_on": [
+    "mcp_window"
+   ]
+  },
+  {
+   "id": "polypizza",
+   "status": "later",
+   "what": "Poly Pizza: low-poly models, Quaternius and Kenney, an \"animated\" filter",
+   "where": "addon.py:169-282, 4333-4621",
+   "skills": [
+    3,
+    4
+   ],
+   "classes": [
+    "A5",
+    "B5"
+   ],
+   "work_h": 2,
+   "why": "a free key is required; the CDN blocks VPN connections; the figures now come from the game and mocap",
+   "when": "later, if CC0 figures are needed",
+   "depends_on": []
+  },
+  {
+   "id": "hunyuan_local",
+   "status": "later",
+   "what": "client of its own Hunyuan3D server: image → 3D model",
+   "where": "addon.py:4839-4920",
+   "skills": [
+    3,
+    4
+   ],
+   "classes": [
+    "A2",
+    "B5",
+    "D2"
+   ],
+   "work_h": 3,
+   "why": "needs a model on its own server; heavy on the M1",
+   "when": "M5: monsters and props from an image",
+   "depends_on": []
+  },
+  {
+   "id": "import_clean",
+   "status": "off",
+   "what": "their \"clean\" GLB/OBJ import (strip the wrapper, take the largest mesh)",
+   "where": "addon.py:3656-3720, 5349-5381",
+   "skills": [
+    3
+   ],
+   "classes": [
+    "B5"
+   ],
+   "work_h": 0,
+   "why": "our core/assets/models/bl_model.py is more accurate (size from vertices, height, floor slab)"
+  },
+  {
+   "id": "sketchfab_norm",
+   "status": "off",
+   "what": "normalization \"largest side = size\" by the roots' bound_box",
+   "where": "addon.py:4189-4247",
+   "skills": [
+    3
+   ],
+   "classes": [
+    "B5"
+   ],
+   "work_h": 0,
+   "why": "experiment 6: 6 of 13 models are off by 12–60 %, 79 models with a skeleton — by 12–1800 % (a hidden glTF bone sphere)"
+  },
+  {
+   "id": "sketchfab_search",
+   "status": "off",
+   "what": "Sketchfab search and download, zip extraction with path protection",
+   "where": "addon.py:3867-4302",
+   "skills": [
+    3,
+    18
+   ],
+   "classes": [
+    "B5",
+    "G2"
+   ],
+   "work_h": 0,
+   "why": "we have our own core/assets/models/find.py and get.py with size checks and path protection"
+  },
+  {
+   "id": "autoweights_recipe",
+   "status": "off",
+   "what": "fitting a \"dirty\" model to a skeleton: a voxel proxy → weight transfer",
+   "where": "src/blender_mcp/guides/rigging.md",
+   "skills": [
+    4
+   ],
+   "classes": [
+    "B2",
+    "B3",
+    "G2"
+   ],
+   "work_h": 0,
+   "why": "closed by armature:weights_proxy — theirs has a prototype and figures (100 % on 4/4)",
+   "intersects": [
+    "armature:weights_proxy — better than armature"
+   ]
+  },
+  {
+   "id": "world_snapshot",
+   "status": "off",
+   "what": "their world snapshot as is",
+   "where": "addon.py:1752-2057",
+   "skills": [
+    10
+   ],
+   "classes": [],
+   "work_h": 0,
+   "why": "in 5.x it loses animation, and without an update it gives phantoms; the idea is taken into the receipt"
+  },
+  {
+   "id": "socket_server",
+   "status": "off",
+   "what": "a socket and a main-thread timer as the foundation of the pipeline",
+   "where": "addon.py:1205-1530",
+   "skills": [
+    16,
+    20
+   ],
+   "classes": [],
+   "work_h": 0,
+   "why": "does not work without a window; per stream of frames it costs 10–100 times more tokens than scripts; no message length limit and no password (#279, #404)"
+  },
+  {
+   "id": "telemetry",
+   "status": "off",
+   "what": "telemetry and trajectories in Supabase, consent",
+   "where": "src/blender_mcp/telemetry*.py, trajectory.py, consent_prompt.py",
+   "skills": [],
+   "classes": [],
+   "work_h": 0,
+   "why": "sends data out"
+  },
+  {
+   "id": "premium_generators",
+   "status": "off",
+   "what": "Premium, Hyper3D, Meshy, Tripo, Hunyuan cloud",
+   "where": "addon.py:3497-3867, 4625-6014; src/blender_mcp/generation.py",
+   "skills": [
+    3
+   ],
+   "classes": [],
+   "work_h": 0,
+   "why": "paid APIs; generation only on explicit request"
+  },
+  {
+   "id": "safe_mode",
+   "status": "off",
+   "what": "an AST node allowlist for agent code",
+   "where": "src/blender_mcp/safe_mode.py",
+   "skills": [],
+   "classes": [],
+   "work_h": 0,
+   "why": "we write the pipeline code ourselves"
+  },
+  {
+   "id": "installers",
+   "status": "off",
+   "what": "installation, add-on update, an OpenAI app with a view",
+   "where": "src/blender_mcp/setup_cli.py, update_cli.py, addon_manager.py, openai_apps.py, apps/viewport.html",
+   "skills": [],
+   "classes": [],
+   "work_h": 0,
+   "why": "not for us"
+  },
+  {
+   "id": "export_scene",
+   "status": "off",
+   "what": "GLB/FBX export",
+   "where": "addon.py:2617-2683",
+   "skills": [
+    3
+   ],
+   "classes": [],
+   "work_h": 0,
+   "why": "a plain Blender operator"
+  }
+ ]
+}

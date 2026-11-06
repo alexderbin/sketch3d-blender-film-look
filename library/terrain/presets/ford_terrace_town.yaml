@@ -1,0 +1,17 @@
+name: ford_terrace_town
+title: Town on a terrace by a ford — a brow above the floodplain, a river with an oxbow
+biome: temperate
+cases: [crossing at the town, fight at the ford, trade by the river, view from the brow over the floodplain]
+knobs: {face: [0, 359], h: [5, 10], h2: [4, 9], fp: [70, 130], w: [14, 30], cross: [ford, bridge]}
+relief:
+  size: 600
+  res: 0.75
+  ground: grass
+  erosion: {amount: 0.3}
+  use:
+    - {type: river_terrace, id: town, at: [-60, 0], face: "{face}", h: "{h}", h2: "{h2}", fp: "{fp}", w: "{w}", cross: "{cross}"}
+  far: {h: 70}
+views:
+  - {name: wide, from: town.far_bank, h: 50, look: town.town, look_h: 0, lens: 26, back: 60}
+  - {name: ford, from: town.far_bank, h: 1.6, look: town.ford, look_h: 0, lens: 28, back: 10, walk: true}
+  - {name: from_brow, from: town.edge, h: 1.8, look: town.floodplain, look_h: 0, lens: 24, walk: true}

@@ -1,0 +1,143 @@
+# Palette references for grading: mean and colour covariance (sRGB 0..1) — we do not store the reference's pixels.
+# Add: .venv/bin/python -m components.post.palettes add <name> <clip | image folder> --note "…"
+palettes:
+  muted_warm:
+    note: colour statistics of reference frames
+    frames: 16
+    brightness: 0.215
+    saturation: 0.16
+    warm_minus_cool: 4.7
+    mean:
+    - 0.20353
+    - 0.21908
+    - 0.21579
+    cov:
+    - - 0.020152
+      - 0.019335
+      - 0.017943
+    - - 0.019335
+      - 0.019137
+      - 0.017918
+    - - 0.017943
+      - 0.017918
+      - 0.017155
+  dark_cool:
+    note: colour statistics of reference frames
+    frames: 16
+    brightness: 0.144
+    saturation: 0.417
+    warm_minus_cool: -5.1
+    mean:
+    - 0.12244
+    - 0.14651
+    - 0.179
+    cov:
+    - - 0.028676
+      - 0.028705
+      - 0.026526
+    - - 0.028705
+      - 0.030991
+      - 0.030689
+    - - 0.026526
+      - 0.030689
+      - 0.034715
+  cold_vivid:
+    note: colour statistics of reference frames
+    frames: 16
+    brightness: 0.188
+    saturation: 0.557
+    warm_minus_cool: -17.7
+    mean:
+    - 0.14753
+    - 0.19405
+    - 0.25073
+    cov:
+    - - 0.01529
+      - 0.015849
+      - 0.018455
+    - - 0.015849
+      - 0.02401
+      - 0.03069
+    - - 0.018455
+      - 0.03069
+      - 0.041617
+  painted_warm:
+    note: colour statistics of reference frames
+    frames: 16
+    brightness: 0.193
+    saturation: 0.384
+    warm_minus_cool: 7.9
+    mean:
+    - 0.20875
+    - 0.19091
+    - 0.18312
+    cov:
+    - - 0.071698
+      - 0.064443
+      - 0.056424
+    - - 0.064443
+      - 0.070441
+      - 0.063791
+    - - 0.056424
+      - 0.063791
+      - 0.060975
+  dark_ember:
+    note: colour statistics of reference frames
+    frames: 16
+    brightness: 0.095
+    saturation: 0.604
+    warm_minus_cool: 12.3
+    mean:
+    - 0.11419
+    - 0.08757
+    - 0.11173
+    cov:
+    - - 0.018466
+      - 0.009807
+      - 0.005659
+    - - 0.009807
+      - 0.007688
+      - 0.006996
+    - - 0.005659
+      - 0.006996
+      - 0.009016
+  dark_saturated:
+    note: colour statistics of reference frames
+    frames: 16
+    brightness: 0.132
+    saturation: 0.748
+    warm_minus_cool: -3.1
+    mean:
+    - 0.06778
+    - 0.14786
+    - 0.1689
+    cov:
+    - - 0.038326
+      - 0.039775
+      - 0.040708
+    - - 0.039775
+      - 0.056653
+      - 0.058146
+    - - 0.040708
+      - 0.058146
+      - 0.061296
+  warm_earth:
+    note: colour statistics of reference frames
+    frames: 16
+    brightness: 0.218
+    saturation: 0.337
+    warm_minus_cool: 15.0
+    mean:
+    - 0.21865
+    - 0.21999
+    - 0.18414
+    cov:
+    - - 0.060357
+      - 0.057765
+      - 0.045704
+    - - 0.057765
+      - 0.058165
+      - 0.048636
+    - - 0.045704
+      - 0.048636
+      - 0.043792

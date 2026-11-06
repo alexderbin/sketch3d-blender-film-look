@@ -1,0 +1,21 @@
+name: desert_canyon
+title: Desert canyon with mesas
+biome: desert
+cases: [ambush in the canyon, chase, caravan, shelter from a storm]
+knobs: {face: [0, 359], depth: [28, 45], width: [10, 22], bend: [0.08, 0.3], mesas: [3, 6], steps: [0, 3]}
+relief:
+  size: 380
+  ground: sand
+  erosion: {amount: 1.2}
+  use:
+    - {type: gorge, id: canyon, at: [0, 0], face: "{face}", depth: "{depth}", w: "{width}", bend: "{bend}", length: 340, mass: plateau, steps: "{steps}"}
+  generate:
+    - {gen: plateau, id: mesa, n: "{mesas}", area: {ring: [110, 175]}, params: {r: [18, 40], h: [18, 40], cliff: true, steps_choice: [0, 2, 3], jag: 0.25}, gap: 0.9}
+    - {gen: spire, id: hoodoo, n: [2, 5], area: {ring: [55, 135]}, params: {h: [10, 22], r: [2.5, 4.5], cap_choice: [true, false]}, gap: 1.5}
+    - {gen: arch, id: arch, n: [0, 1], area: {ring: [70, 125]}, params: {span: [18, 30], h: [12, 20], thick: [3, 5], rot: [0, 180]}, gap: 2.0}
+  far: {h: 150, kind: mesa}
+views:                             # the preset's cameras — for its scenarios (the points are the site's anchors)
+  - {name: wide, from: canyon.entry, h: 60, look: canyon.floor, look_h: 0, lens: 26, back: 70}
+  - {name: canyon_entrance, from: canyon.entry, h: 1.7, look: canyon.floor, look_h: 3, lens: 28, back: 20}
+  - {name: down_from_rim, from: canyon.rim, h: 2, look: canyon.floor, look_h: 0, lens: 24}
+  - {name: pocket, from: canyon.pocket, h: 1.6, look: canyon.exit, look_h: 2, lens: 28}
